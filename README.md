@@ -262,3 +262,13 @@ Systems are not judged by how they behave under ideal conditions.
 They are judged by how they behave when pressured, attacked, and manipulated.
 
 SCSS was designed for the latter.
+
+## License
+
+This project is licensed under the
+Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+
+You are free to share the material with proper attribution,
+but commercial use and derivative works are not permitted.
+
+See the LICENSE file for full details.
