@@ -1,3 +1,5 @@
+![License](https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-lightgrey)
+
 # SCSS — Sovereign Constitutional Security Stack
 
 Constitutional Infrastructure for Sovereign AI Systems
@@ -272,3 +274,4 @@ You are free to share the material with proper attribution,
 but commercial use and derivative works are not permitted.
 
 See the LICENSE file for full details.
+
