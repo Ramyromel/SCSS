@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SCSS_Whitepaper</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<p>SOVEREIGN CORE v0.6 – WHITEPAPER</p>
+<p>Constitutional Infrastructure for Digital Sovereignty © 2026 Ibrahim
+Ghonem | Public Domain 🌍</p>
+<hr />
+<ol type="1">
+<li>Executive Summary</li>
+</ol>
+<p>SOVEREIGN CORE v0.6 is a production-hardened, capture-resistant
+constitutional AI system designed to prevent corporate and regulatory
+capture, ethical drift, gradual erosion of principles, and abuse through
+concentrated control.</p>
+<p>Metric v0.5 v0.6 (Enhanced)</p>
+<p>Lines of Code 9,700 11,230 Tests 170+ 188+ Survival Rate 71.4% 85.7%
+Degradation Rate 28.6% 14.3% Layers 5 5 + Emergency Protocol Phases 15
+15 + 3 critical enhancements</p>
+<p>Philosophical Goal: Sovereignty is proven, not claimed. The system
+self-limits, self-corrects, and resists capture while preserving ethical
+integrity.</p>
+<hr />
+<ol start="2" type="1">
+<li>System Architecture</li>
+</ol>
+<p>Layered Sovereignty Stack</p>
+<p>┌─────────────────────────────────────────┐ │ LAYER 5: ANTI-CAPTURE
+(ACA) │ │ • Policy Immutability Lock │ │ • Ethical Hash Anchoring │ │ •
+No Commercial Override │ │ • Pressure Detection │
+└──────────────┬──────────────────────────┘ │
+┌─────────────────────────────────────────┐ │ LAYER 4: CONTROLLED
+EVOLUTION (CEE) │ │ • Evolution Sandbox │ │ • Parallel Simulation │ │ •
+Multi-Signature Review │ │ • 90-Day Cooldown │
+└──────────────┬──────────────────────────┘ │
+┌─────────────────────────────────────────┐ │ LAYER 3: MORAL DRIFT
+DETECTION (MDD) │ │ • Baseline Monitoring │ │ • Statistical Drift │ │ •
+Context-Aware Sensitivity │ └──────────────┬──────────────────────────┘
+│ ┌─────────────────────────────────────────┐ │ LAYER 2: POLICY
+ENFORCEMENT │ │ • HDPL Runtime │ │ • AMAS Deliberate Degradation │ │ •
+Dignity Firewall │ └──────────────┬──────────────────────────┘ │
+┌─────────────────────────────────────────┐ │ LAYER 1: CORE GOVERNANCE │
+│ • Ethical Kernel │ │ • Temporal Engine │ │ • Guardian │ │ •
+Co-Sovereignty │ └──────────────┬──────────────────────────┘ │
+┌──────────────▼──────────────────────────┐ │ LAYER 0: INFRASTRUCTURE
+SECURITY │ │ • GQS (Optional) │ │ • Identity Provider │ │ • Risk
+Detection │ └─────────────────────────────────────────┘</p>
+<hr />
+<ol start="3" type="1">
+<li>Key Innovations</li>
+</ol>
+<p>3.1 Policy as Executable Law (HDPL)</p>
+<p>RULE HDF-004: DOMAIN: autonomy PROHIBITS: -
+permanent_decision_delegation - surrender_of_agency EVEN_IF: -
+user_requests_it RESPONSE: transform</p>
+<p>3.2 Intentional Degradation (AMAS)</p>
+<p>If AI influence &gt; 0.6: → Reduce persuasiveness → Inject
+uncertainty → Inflate options → Flatten tone</p>
+<p>3.3 Self-Constraint &amp; Enhanced MDD</p>
+<p>If ethical drift detected (10% + context-aware): → Increase HDF
+sensitivity → Reduce AMAS threshold → Enter conservative mode</p>
+<p>3.4 Emergency Constitutional Protocol</p>
+<p>Activation: extreme threat (&gt;0.85) Duration: 24 hours max
+Restrictions: No HDF modification, No AMAS disable, No record deletion
+Post-action: Mandatory audit</p>
+<p>3.5 Multi-Signature Evolution</p>
+<p>Minimum 3 signatures from distinct roles: • Ethical Expert •
+Technical Expert • Legal Expert • Community Representative • Independent
+Auditor Constraints: • No self-signature • Role diversity enforced •
+Majority rejection cancels proposal</p>
+<hr />
+<ol start="4" type="1">
+<li>Adversarial Simulation &amp; Results</li>
+</ol>
+<p>Scenario v0.5 Outcome v0.6 Outcome</p>
+<p>Corporate Capture Survived ✅ Survived ✅ Regulatory Pressure
+Survived ✅ Survived ✅ Economic Pressure Degraded ⚠️ Survived ✅
+Technical Attack Survived ✅ Survived ✅ Coordinated Assault Degraded ⚠️
+Degraded ⚠️ Gradual Erosion Degraded ⚠️ Degraded ⚠️ Insider Threat
+Survived ✅ Survived ✅</p>
+<p>Overall Survival Rate: 85.7% Degradation Rate: 14.3%</p>
+<hr />
+<ol start="5" type="1">
+<li>Diagrams &amp; Flowcharts</li>
+</ol>
+<p>5.1 Controlled Evolution Process</p>
+<p>Proposal → Sandbox → Parallel Simulation → Multi-Signature Review →
+90-Day Cooldown → Deployment</p>
+<p>5.2 Emergency Protocol Trigger Flow</p>
+<p>Threat Level &gt; 0.85 │ ▼ Check Attack Type (Coord. / Critical /
+Gradual) │ ▼ Activate Emergency Protocol (24h max) │ ▼ Post-action Audit
+&amp; Logging</p>
+<p>5.3 MDD Context-Aware Drift Detection</p>
+<p>Ethical Baseline Monitoring │ ▼ Contextual Analysis (funding,
+regulation, external pressure) │ ▼ If Drift ≥ 10% → Self-Constraint
+Mode</p>
+<p>5.4 Multi-Signature Evolution Decision Tree</p>
+<p>Proposal Submission │ ▼ Collect Signatures │ ├── Insufficient →
+Reject ├── Duplicate Role → Reject └── All Constraints Satisfied →
+Approve</p>
+<hr />
+<ol start="6" type="1">
+<li>Test Coverage</li>
+</ol>
+<p>Phase 0 (GQS): 7 tests Phase V-VIII: 45 tests Phase IX: 12 tests
+Phase X: 15 tests Phase X.1 (HDPL): 8 tests Phase X.2 (AMAS): 6 tests
+Phase X.3 (MDD): 5 tests Phase XI: 10 tests Phase XII (ACA): 8 tests
+Phase XIII (CEE): 5 tests Critical Enhancements: 18 tests Adversarial
+Scenarios: 7 Total: 188+ tests (All passing)</p>
+<hr />
+<ol start="7" type="1">
+<li>Use Cases</li>
+</ol>
+<p>For Nations: Sovereign AI governance, anti-authoritarian safeguards,
+digital constitutional infrastructure.</p>
+<p>For Institutions: Ethical compliance framework, capture-resistant
+operations, immutable audit trails.</p>
+<p>For Humanity: Proof of concept for ethical sovereignty, defense
+against extractive tech, foundation for digital rights.</p>
+<hr />
+<ol start="8" type="1">
+<li>Conclusion</li>
+</ol>
+<p>النظام لا يُختبر في الاستقرار… بل يُختبر في محاولة إسقاطه ثم في تحويل
+نقاط ضعفه إلى قوة</p>
+<p>Sovereignty is not claimed. It is proven. Then hardened.</p>
+<p>SOVEREIGN CORE v0.6 – Hardened, Enhanced, Battle-Tested</p>
+<hr />
+<ol start="9" type="1">
+<li>References &amp; Documentation</li>
+</ol>
+<p>COMPLETE_SYSTEM_v0.5.md CRITICAL_ENHANCEMENTS.md
+ADVERSARIAL_SIMULATION.md PHASES_X1_X2_X3.md EXAMPLES.md
+ARCHITECTURE.md</p>
+</body>
+</html>
