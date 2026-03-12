@@ -246,17 +246,6 @@ Public disclosure without coordination may create systemic risks.
 
 ---
 
-# License
-
-Copyright © 2026  
-Ibrahim Nayef Ibrahim Hassan Ghoneim
-
-All rights reserved.
-
-This architecture may not be copied, reproduced, or deployed without explicit permission.
-
----
-
 # Closing Statement
 
 Systems are not judged by how they behave under ideal conditions.
@@ -274,4 +263,5 @@ You are free to share the material with proper attribution,
 but commercial use and derivative works are not permitted.
 
 See the LICENSE file for full details.
+
 
