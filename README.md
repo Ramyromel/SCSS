@@ -1,6 +1,6 @@
-# SOVEREIGN CORE v0.6
+![License](https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-lightgrey)
 
-<div align="center">
+# SCSS — Sovereign Constitutional Security Stack
 
 ## Constitutional Infrastructure for Digital Sovereignty  
 ### بنية دستورية تحتية للسيادة الرقمية
