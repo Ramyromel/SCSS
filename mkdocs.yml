@@ -1,0 +1,9 @@
+site_name: SCSS Documentation
+site_url: https://ramyromel.github.io/SCSS/
+nav:
+  - "ورقة بيضاء": "SCSS_Whitepaper.md"
+  - "الاختبار": "testing.md"
+  - "فلسفة": "philosophy.md"
+  - "رخصة": "license.md"
+theme:
+  name: material
