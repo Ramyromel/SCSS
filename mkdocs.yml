@@ -1,4 +1,5 @@
 site_name: SCSS Documentation
+<<<<<<< Updated upstream
 site_url: ""   # مهم جداً
 
 repo_url: https://github.com/Ramyromel/SCSS
@@ -8,6 +9,8 @@ theme:
 
 docs_dir: docs
 
+=======
+>>>>>>> Stashed changes
 nav:
   - Home: index.md
   - Architecture: architecture.md
@@ -15,3 +18,5 @@ nav:
   - Testing: testing.md
   - Philosophy: philosophy.md
   - License: license.md
+theme:
+  name: material
