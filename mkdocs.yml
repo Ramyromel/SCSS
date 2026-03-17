@@ -1,16 +1,12 @@
 site_name: SCSS Documentation
-site_url: https://ramyromel.github.io/SCSS/
-repo_url: https://github.com/Ramyromel/SCSS
-repo_name: SCSS
+site_url: ""   # مهم جداً
 
-docs_dir: docs
+repo_url: https://github.com/Ramyromel/SCSS
 
 theme:
   name: material
-  features:
-    - navigation.instant
-    - navigation.sections
-    - navigation.top
+
+docs_dir: docs
 
 nav:
   - Home: index.md
