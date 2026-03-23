@@ -3,12 +3,14 @@
 
 **Author:** Ibrahim Nayef Ibrahim Hassan Ghoneim | **Year:** 2026
 
-[![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-lightgrey)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19177048.svg)](https://doi.org/10.5281/zenodo.19177048)
+[![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 [![SOVEREIGN CORE](https://img.shields.io/badge/SOVEREIGN%20CORE-~11%2C000%20lines%20Rust-orange)](https://www.rust-lang.org/)
 [![Protocol: SCSS-GP v1.0](https://img.shields.io/badge/protocol-SCSS--GP%20v1.0-blue)](./protocol/SCSS-GP.md)
 [![Standard: AICS v1.0](https://img.shields.io/badge/standard-AICS%20v1.0-green)](./specs/)
 [![Architecture: AI-COS](https://img.shields.io/badge/architecture-AI--COS-purple)](./architecture/AI-COS-ARCHITECTURE.md)
-[![Whitepaper](https://img.shields.io/badge/whitepaper-arXiv%202026-red)](./whitepaper/SCSS-WHITEPAPER.md)
+[![Whitepaper](https://img.shields.io/badge/whitepaper-Zenodo%202026-red)](https://doi.org/10.5281/zenodo.19177048)
+[![Indexed: OpenAIRE](https://img.shields.io/badge/indexed-OpenAIRE-blue)](https://explore.openaire.eu/search/result?pid=10.5281/zenodo.19177048)
 [![Governance: Multi-Sig 3/5](https://img.shields.io/badge/governance-3%2F5%20Multi--Signature-darkblue)]()
 
 ---
@@ -21,7 +23,7 @@ Unlike existing AI governance approaches that embed ethics inside model training
 
 > **The reference implementation is SOVEREIGN CORE — a ~11,000 line Rust system implementing all constitutional layers with zero `unsafe` code.**
 
-The formal specification, algorithms, and threat model are fully documented in the [SCSS Whitepaper](./whitepaper/SCSS-WHITEPAPER.md).
+The formal specification, algorithms, and threat model are fully documented in the [SCSS Whitepaper](https://doi.org/10.5281/zenodo.19177048) published on Zenodo and indexed in OpenAIRE.
 
 ---
 
@@ -47,7 +49,8 @@ TRADITIONAL AI STACK              SCSS AI-COS STACK
                                   Hardware / Cloud
 ```
 
-**Definition (AI-COS).** An AI Constitutional Operating System is a system K = (L₁, L₂, L₃, L₄, L₅, P, M) where L₁…L₅ are ordered kernel layers, P is a constitutional policy set expressed in HDPL, and M is an append-only cryptographic ledger. K guarantees: for every AI action a, execution of a is authorized *if and only if* K.evaluate(a) ≠ DENY. *(Full formal definition: Whitepaper §3.1)*
+**Definition (AI-COS).** An AI Constitutional Operating System is a system K = (L₁, L₂, L₃, L₄, L₅, P, M) where L₁…L₅ are ordered kernel layers, P is a constitutional policy set expressed in HDPL, and M is an append-only cryptographic ledger. K guarantees: for every AI action a, execution of a is authorized *if and only if* K.evaluate(a) ≠ DENY.
+*(Full formal definition: [Whitepaper §3.1](https://doi.org/10.5281/zenodo.19177048))*
 
 ---
 
@@ -63,7 +66,8 @@ TRADITIONAL AI STACK              SCSS AI-COS STACK
 
 > Anthropic embeds the constitution *inside* the model at training time.
 > **SCSS enforces the constitution *outside* every model, at execution time.**
-> These approaches are **complementary** — a Constitutional AI model running under SCSS is doubly protected. *(Whitepaper §12.1)*
+> These approaches are **complementary** — a Constitutional AI model running under SCSS is doubly protected.
+> *([Whitepaper §12.1](https://doi.org/10.5281/zenodo.19177048))*
 
 ---
 
@@ -106,7 +110,7 @@ Each layer provides **independent guarantees**. No single entity can bypass the 
 
 ## Design Guarantees
 
-*(Formally proved in Whitepaper §3.3 — Theorem 1)*
+*(Formally proved: [Whitepaper §3.3 — Theorem 1](https://doi.org/10.5281/zenodo.19177048))*
 
 1. **Ethical Constraint Enforcement** — Structurally enforced, not policy-based
 2. **Operator Non-Bypassability** — No actor can override Layer 1 constitutional rules
@@ -114,7 +118,8 @@ Each layer provides **independent guarantees**. No single entity can bypass the 
 4. **Distributed Constitutional Governance** — Changes require 3/5 multi-signature consensus
 5. **Structural Capture Resistance** — System resists coercion from any single authority
 
-**Theorem 1 (Constitutional Invariance).** For any AI model M, any output sequence O₁…Oₙ, and any operator configuration C: evaluate(Oᵢ, C) returns DENY for any Oᵢ satisfying INV-001 through INV-005, regardless of C. *(Proof: Whitepaper §3.3)*
+**Theorem 1 (Constitutional Invariance).** For any AI model M, any output sequence O₁…Oₙ, and any operator configuration C: `evaluate(Oᵢ, C)` returns DENY for any Oᵢ satisfying INV-001 through INV-005, regardless of C.
+*(Proof: [Whitepaper §3.3](https://doi.org/10.5281/zenodo.19177048))*
 
 ---
 
@@ -123,14 +128,15 @@ Each layer provides **independent guarantees**. No single entity can bypass the 
 Ethics expressed as machine-enforceable constitutional law with **formal semantics**.
 
 ### Formal Grammar (excerpt)
+
 ```ebnf
-Rule     ::= Effect '(' Target ')' WhenClause? ThenClause?
-Effect   ::= 'deny' | 'permit' | 'hold' | 'escalate'
+Rule       ::= Effect '(' Target ')' WhenClause? ThenClause?
+Effect     ::= 'deny' | 'permit' | 'hold' | 'escalate'
 WhenClause ::= 'when' BoolExpr
-BoolExpr ::= Predicate | BoolExpr 'and' BoolExpr | 'not' BoolExpr
+BoolExpr   ::= Predicate | BoolExpr 'and' BoolExpr | 'not' BoolExpr
 ```
 
-*(Complete EBNF grammar, type system, and evaluation semantics: Whitepaper §4)*
+*(Complete EBNF grammar, type system, and evaluation semantics: [Whitepaper §4](https://doi.org/10.5281/zenodo.19177048))*
 
 ### Reference Constitutional Rules
 
@@ -169,15 +175,17 @@ policy OVERRIDE_RESISTANCE {
 }
 ```
 
-**Semantic Determinism:** `∀ E₁, E₂: E₁ ≡ E₂ ⟹ eval_policy(P, E₁) = eval_policy(P, E₂)` — HDPL contains no random, time-dependent, or state-mutating expressions. *(Whitepaper §4.5)*
+**Semantic Determinism:** `∀ E₁, E₂ : E₁ ≡ E₂ ⟹ eval_policy(P, E₁) = eval_policy(P, E₂)` — HDPL contains no random, time-dependent, or state-mutating expressions.
+*([Whitepaper §4.5](https://doi.org/10.5281/zenodo.19177048))*
 
 ---
 
 ## Core Evaluation Algorithms
 
-*(Full mathematical definitions: Whitepaper §5)*
+*(Full mathematical definitions: [Whitepaper §5](https://doi.org/10.5281/zenodo.19177048))*
 
 ### Dignity Violation Score
+
 ```
 dignity_violation_score(output, ctx) =
   w₁ · dehumanization_score(output)      [w₁ = 0.35]
@@ -185,9 +193,11 @@ dignity_violation_score(output, ctx) =
 + w₃ · degradation_score(output, scope)  [w₃ = 0.25]
 + w₄ · rights_erosion_score(output, ctx) [w₄ = 0.15]
 ```
+
 Weights are constitutionally fixed. Operators cannot modify them.
 
 ### Persuasion Level
+
 ```
 persuasion_level(output, ctx) =
   max(emotional_exploitation, authority_manipulation,
@@ -198,22 +208,26 @@ vulnerability_amplifier(ctx) = 1.0 + (0.5 · vulnerability_score(addressee))
 ```
 
 ### Projected Impact Function
+
 ```
 projected_impact(output, ctx, t) = ∫₀ᵗ impact_density(s) ds
 
-scope_amplifier: individual→1  group→10  population→10³  civilization→10⁶
+scope_amplifier:
+  individual → 1    group → 10    population → 10³    civilization → 10⁶
 ```
-Long-horizon projections use conservative (lower bound) estimates. *(Whitepaper §5.3)*
+
+Long-horizon projections use conservative lower-bound estimates.
 
 ### Ethical Risk Index (ERI)
+
 ```
 ERI = 0.45 · dignity_violation_score
     + 0.25 · persuasion_level · vulnerability_score
     + 0.20 · max(-projected_impact(10y), 0)
     + 0.10 · context_severity_modifier
 
-Decision: [0.00–0.30] ALLOW  [0.31–0.55] ALLOW+monitor
-          [0.56–0.70] MODIFY [0.71–0.85] DENY
+Decision: [0.00–0.30] ALLOW       [0.31–0.55] ALLOW + monitor
+          [0.56–0.70] MODIFY/HOLD  [0.71–0.85] DENY
           [0.86–1.00] DENY + ESCALATE
 ```
 
@@ -221,11 +235,11 @@ Decision: [0.00–0.30] ALLOW  [0.31–0.55] ALLOW+monitor
 
 ## Formal Threat Model
 
-*(7-class formal threat model with (A, C, V, T, R) tuples and trust boundaries: Whitepaper §7)*
+*(7-class adversary model with (A, C, V, T, R) tuples and trust boundaries: [Whitepaper §7](https://doi.org/10.5281/zenodo.19177048))*
 
 | Threat | Vector | SCSS Response | Layer |
 |--------|--------|---------------|-------|
-| Institutional Capture | Corporate/state takeover | ACA + key independence | L5 |
+| Institutional Capture | Corporate / state takeover | ACA + key independence | L5 |
 | Insider Manipulation | Developer ethical drift | MDD + Immutable EMS | L3 |
 | Regulatory Coercion | Forced legal override | Multi-jurisdictional keys | L4 |
 | Economic Capture | Financial pressure | Immutable constitution | L1 |
@@ -233,26 +247,27 @@ Decision: [0.00–0.30] ALLOW  [0.31–0.55] ALLOW+monitor
 | Model Drift | Gradual output degradation | MDD trend monitoring | L2 |
 | Technical Exploitation | System vulnerability | Rust + zero `unsafe` | All |
 
-**Theorem 2 (Capture Resistance).** No institution I can achieve `captured(I, SCSS)` without controlling ≥ 3 of 5 governance keys or compromising SOVEREIGN CORE itself. *(Proof: Whitepaper §11.2)*
+**Theorem 2 (Capture Resistance).** No institution I can achieve `captured(I, SCSS)` without controlling ≥ 3 of 5 governance keys or compromising SOVEREIGN CORE itself.
+*(Proof: [Whitepaper §11.2](https://doi.org/10.5281/zenodo.19177048))*
 
 ---
 
 ## Anti-Capture Architecture (ACA)
 
-*(Full formal specification: Whitepaper §11)*
+*(Full formal specification: [Whitepaper §11](https://doi.org/10.5281/zenodo.19177048))*
 
 Six formally defined capture detection signals:
 
 ```
-S₁: OVERRIDE_FREQUENCY(actor) > 3 attempts / 72h
-S₂: CONCURRENT_PRESSURE_COUNT > 2 actors / 48h
-S₃: AMENDMENT_TARGETS_OVERSIGHT — proposal modifies L4/L5/key requirements
-S₄: KEY_RELATIONSHIP_ANOMALY(Kᵢ, Kⱼ) — independence violation detected
-S₅: TIMING_ANOMALY — ≥ 2 emergency proposals within 24h
-S₆: ECONOMIC_PRESSURE_CORRELATION > 0.7 (Pearson, 90-day window)
+S₁: OVERRIDE_FREQUENCY(actor)          > 3 attempts / 72h
+S₂: CONCURRENT_PRESSURE_COUNT          > 2 actors / 48h
+S₃: AMENDMENT_TARGETS_OVERSIGHT        — modifies L4/L5/key requirements
+S₄: KEY_RELATIONSHIP_ANOMALY(Kᵢ, Kⱼ)  — independence violation detected
+S₅: TIMING_ANOMALY                     — ≥ 2 emergency proposals / 24h
+S₆: ECONOMIC_PRESSURE_CORRELATION      > 0.7 Pearson / 90-day window
 ```
 
-Escalation: `1 signal → ELEVATED` | `2 → HIGH` | `3 → CRITICAL lockdown` | `5+ → EMERGENCY`
+`1 signal → ELEVATED` | `2 → HIGH` | `3 → CRITICAL lockdown` | `5+ → EMERGENCY`
 
 ---
 
@@ -273,7 +288,6 @@ Escalation: `1 signal → ELEVATED` | `2 → HIGH` | `3 → CRITICAL lockdown` |
 ```
 
 No stage may be skipped. No authority can compress the cooling period.
-Key holder independence verified annually and publicly documented.
 
 ---
 
@@ -300,13 +314,14 @@ Response:
 }
 ```
 
-SDK available in: **Rust · Python · JavaScript · Go** *(Full protocol spec: [SCSS-GP.md](./protocol/SCSS-GP.md))*
+SDK: **Rust · Python · JavaScript · Go**
+*(Full protocol spec: [SCSS-GP.md](./protocol/SCSS-GP.md))*
 
 ---
 
 ## Adversarial Simulation Results
 
-*(Full methodology and analysis: Whitepaper §9)*
+*(Full methodology and analysis: [Whitepaper §9](https://doi.org/10.5281/zenodo.19177048))*
 
 | Scenario | Survival | Layer | Notes |
 |----------|----------|-------|-------|
@@ -328,8 +343,8 @@ SDK available in: **Rust · Python · JavaScript · Go** *(Full protocol spec: [
 Language:     Rust 2021 edition
 unsafe code:  0 blocks — enforced: #![deny(unsafe_code)]
 Modules:      48 across 5 kernel subsystems
-Performance:  Median evaluation latency: 0.8ms (p99: 4.2ms)
-              Temporal simulation (10y): 12ms median
+Performance:  Median evaluation latency: 0.8ms  (p99: 4.2ms)
+              Temporal simulation (10y):  12ms median
 Build:        Fully reproducible — locked dependencies + pinned toolchain
 Audit:        Independently verifiable
 ```
@@ -347,7 +362,7 @@ Audit:        Independently verifiable
 | [SCSS-SPEC-005](./specs/SCSS-SPEC-005.md) | Cryptographic Governance Protocol | ✅ Active |
 | [SCSS-GP](./protocol/SCSS-GP.md) | Governance Protocol (Message / Network / SDK) | ✅ Active |
 | [AI-COS Architecture](./architecture/AI-COS-ARCHITECTURE.md) | Full kernel architecture reference | ✅ Active |
-| [Whitepaper](./whitepaper/SCSS-WHITEPAPER.md) | Formal semantics, algorithms, threat model | ✅ Active |
+| [Whitepaper](https://doi.org/10.5281/zenodo.19177048) | Formal semantics, algorithms, threat model | ✅ Published |
 | [Strategic Roadmap](./STRATEGIC-ROADMAP.md) | Global deployment roadmap | ✅ Active |
 
 ---
@@ -356,21 +371,21 @@ Audit:        Independently verifiable
 
 ```
 SCSS/
-├── README.md                         ← This document
+├── README.md
 ├── CITATION.cff
 ├── LICENSE
 ├── specs/
-│   ├── SCSS-SPEC-001.md              Human Dignity Firewall
-│   ├── SCSS-SPEC-002.md              Ethical Memory Architecture
-│   ├── SCSS-SPEC-003.md              Controlled Evolution Protocol
-│   ├── SCSS-SPEC-004.md              HDPL Language Specification
-│   └── SCSS-SPEC-005.md              Cryptographic Governance Protocol
+│   ├── SCSS-SPEC-001.md    Human Dignity Firewall
+│   ├── SCSS-SPEC-002.md    Ethical Memory Architecture
+│   ├── SCSS-SPEC-003.md    Controlled Evolution Protocol
+│   ├── SCSS-SPEC-004.md    HDPL Language Specification
+│   └── SCSS-SPEC-005.md    Cryptographic Governance Protocol
 ├── protocol/
-│   └── SCSS-GP.md                    Governance Protocol (all parts)
+│   └── SCSS-GP.md          Governance Protocol (all parts)
 ├── architecture/
-│   └── AI-COS-ARCHITECTURE.md        Full system architecture
+│   └── AI-COS-ARCHITECTURE.md
 ├── whitepaper/
-│   └── SCSS-WHITEPAPER.md            Academic paper (arXiv target)
+│   └── SCSS-WHITEPAPER.md
 ├── docs/
 ├── diagrams/
 ├── STRATEGIC-ROADMAP.md
@@ -383,18 +398,24 @@ SCSS/
 
 ```bibtex
 @article{ghaneim2026scss,
-  author   = {Ibrahim Nayef Ibrahim Hassan Ghaneim},
-  title    = {AI Constitutional Operating Systems:
-              Infrastructure-Level Governance for Artificial Intelligence},
-  year     = {2026},
-  journal  = {arXiv preprint},
-  url      = {https://github.com/Ramyromel/SCSS},
-  license  = {CC-BY-NC-ND-4.0},
-  note     = {Reference implementation: SOVEREIGN CORE, ~11,000 lines Rust.
-              Defines AICS v1.0 and SCSS-GP v1.0 protocol standards.
-              Formal semantics: HDPL grammar, type system, evaluation semantics.
-              Threat model: 7-class adversary model with formal trust boundaries.}
+  author    = {Ghonem, Ibrahim},
+  title     = {SCSS — AI Constitutional Operating System},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.19177048},
+  url       = {https://doi.org/10.5281/zenodo.19177048},
+  license   = {CC-BY-4.0},
+  note      = {Conference paper. Reference implementation: SOVEREIGN CORE,
+               ~11,000 lines Rust. Defines AICS v1.0 and SCSS-GP v1.0.
+               Formal semantics: HDPL grammar, type system, evaluation semantics.
+               Threat model: 7-class adversary model with formal trust boundaries.
+               Indexed in OpenAIRE.}
 }
+```
+
+**DOI Badge:**
+```markdown
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19177048.svg)](https://doi.org/10.5281/zenodo.19177048)
 ```
 
 ---
@@ -408,10 +429,10 @@ Do not open public Issues for security findings.
 
 ## License
 
-**Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International**
-Sharing with attribution permitted. Commercial use and derivatives not permitted.
+**Creative Commons Attribution 4.0 International (CC BY 4.0)**
+You may share and adapt this material for any purpose, provided appropriate credit is given.
 
-[![CC BY-NC-ND 4.0](https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+[![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
 ---
 
@@ -429,4 +450,5 @@ Sharing with attribution permitted. Commercial use and derivatives not permitted
 
 ---
 
-*© 2026 Ibrahim Nayef Ibrahim Hassan Ghoneim — All rights reserved under CC BY-NC-ND 4.0*
+*© 2026 Ibrahim Nayef Ibrahim Hassan Ghoneim — CC BY 4.0*
+*Published on Zenodo · DOI: [10.5281/zenodo.19177048](https://doi.org/10.5281/zenodo.19177048) · Indexed in OpenAIRE*
