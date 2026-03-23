@@ -1,7 +1,7 @@
 # AI Constitutional Operating Systems:
 ## Infrastructure-Level Governance for Artificial Intelligence
 
-**Ibrahim Nayef Ibrahim Hassan Ghaneim**
+**Ibrahim Nayef Ibrahim Hassan Ghoneim**
 Independent Researcher | 2026
 Contact: ELTH3LAB__@hotmail.com
 Repository: https://github.com/Ramyromel/SCSS
@@ -920,4 +920,4 @@ SCSS proposes the third answer.
 
 ---
 
-*© 2026 Ibrahim Nayef Ibrahim Hassan Ghaneim — CC BY-NC-ND 4.0*
+*© 2026 Ibrahim Nayef Ibrahim Hassan Ghoneim — CC BY-NC-ND 4.0*
