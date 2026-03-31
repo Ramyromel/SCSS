@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCSS v2.0 — الإطار الدستوري الكامل لحوكمة الذكاء الاصطناعي</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #05070f;
+    --deep: #0a0e1a;
+    --surface: #0f1422;
+    --elevated: #151c2e;
+    --border: #1e2a42;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --crimson: #8b1a1a;
+    --crimson-light: #c0392b;
+    --cyan: #1a8b8b;
+    --cyan-light: #00d4d4;
+    --text-primary: #e8e4d9;
+    --text-secondary: #9a9080;
+    --text-muted: #5a5248;
+    --critical: #ff4444;
+    --warning: #ff8c00;
+    --safe: #00b894;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-primary);
+    font-family: 'Noto Naskh Arabic', serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ─── GRAIN OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,212,212,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(139,26,26,0.06) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  .seal {
+    width: 120px;
+    height: 120px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    animation: sealRotate 20s linear infinite;
+  }
+
+  .seal::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50%;
+  }
+
+  .seal-inner {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  @keyframes sealRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .hero-title .gold { color: var(--gold); }
+  .hero-title .dim { color: var(--text-secondary); }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .meta-item {
+    text-align: center;
+  }
+
+  .meta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .meta-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--gold);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SCROLL INDICATOR ─── */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.5s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* ─── SECTION BASE ─── */
+  .section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0;
+    opacity: 0.3;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    min-width: 80px;
+    text-align: right;
+  }
+
+  .section-title-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title-block .subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ─── CRISIS BOX ─── */
+  .crisis-box {
+    background: rgba(139,26,26,0.1);
+    border: 1px solid rgba(192,57,43,0.3);
+    border-right: 4px solid var(--crimson-light);
+    padding: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .crisis-box::before {
+    content: '⚠ حالة طوارئ حوكمية';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--crimson-light);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .crisis-box p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+
+  .crisis-box strong {
+    color: var(--text-primary);
+  }
+
+  /* ─── STAT GRID ─── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 100%;
+  }
+
+  .stat-card.gold::before { background: var(--gold); }
+  .stat-card.red::before { background: var(--crimson-light); }
+  .stat-card.cyan::before { background: var(--cyan-light); }
+  .stat-card.warn::before { background: var(--warning); }
+
+  .stat-card:hover { border-color: var(--gold); }
+
+  .stat-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-card.gold .stat-value { color: var(--gold); }
+  .stat-card.red .stat-value { color: var(--crimson-light); }
+  .stat-card.cyan .stat-value { color: var(--cyan-light); }
+  .stat-card.warn .stat-value { color: var(--warning); }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* ─── ARCHITECTURE STACK ─── */
+  .arch-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 4rem;
+  }
+
+  .arch-layer {
+    border: 1px solid var(--border);
+    border-bottom: none;
+    padding: 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .arch-layer:last-child { border-bottom: 1px solid var(--border); }
+
+  .arch-layer:hover {
+    background: var(--surface);
+    border-color: var(--gold);
+    z-index: 1;
+  }
+
+  .arch-layer.constitutional {
+    background: rgba(201,168,76,0.05);
+    border-color: rgba(201,168,76,0.4);
+  }
+
+  .arch-layer.critical {
+    background: rgba(139,26,26,0.05);
+  }
+
+  .arch-layer.missing {
+    background: rgba(255,68,68,0.03);
+    border-style: dashed;
+  }
+
+  .layer-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+
+  .layer-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .layer-name-en {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .layer-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .layer-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .status-exists { background: rgba(0,184,148,0.15); color: var(--safe); border: 1px solid rgba(0,184,148,0.3); }
+  .status-partial { background: rgba(255,140,0,0.15); color: var(--warning); border: 1px solid rgba(255,140,0,0.3); }
+  .status-missing { background: rgba(255,68,68,0.15); color: var(--critical); border: 1px solid rgba(255,68,68,0.3); }
+  .status-new { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+
+  /* ─── CODE BLOCK ─── */
+  .code-block {
+    background: var(--deep);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--gold);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    direction: ltr;
+    text-align: left;
+  }
+
+  .code-block pre .key { color: var(--gold); }
+  .code-block pre .val { color: var(--cyan-light); }
+  .code-block pre .comment { color: var(--text-muted); }
+  .code-block pre .critical { color: var(--critical); }
+  .code-block pre .safe { color: var(--safe); }
+
+  /* ─── MATRIX TABLE ─── */
+  .matrix-wrap {
+    overflow-x: auto;
+    margin-bottom: 3rem;
+  }
+
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .matrix th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 1rem;
+    border-bottom: 1px solid var(--gold);
+    text-align: right;
+    background: var(--surface);
+  }
+
+  .matrix td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  .matrix tr:hover td { background: var(--surface); }
+
+  .matrix td:first-child {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .dot-full { color: var(--safe); }
+  .dot-half { color: var(--warning); }
+  .dot-none { color: var(--critical); }
+
+  /* ─── PRINCIPLE CARDS ─── */
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .principle-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .principle-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .principle-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .principle-card:hover::after { opacity: 1; }
+
+  .p-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .p-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .p-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ─── ECONOMIC LAYER ─── */
+  .economic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .economic-grid { grid-template-columns: 1fr; }
+    .arch-layer { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; gap: 1rem; }
+    .hero-meta { gap: 1.5rem; }
+  }
+
+  .econ-cell {
+    padding: 2rem;
+    border-left: 1px solid var(--border);
+    position: relative;
+  }
+
+  .econ-cell:last-child { border-left: none; }
+
+  .econ-cell.positive { background: rgba(0,184,148,0.03); }
+  .econ-cell.negative { background: rgba(255,68,68,0.03); }
+  .econ-cell.neutral { background: rgba(201,168,76,0.03); }
+
+  .econ-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .econ-cell.positive .econ-label { color: var(--safe); }
+  .econ-cell.negative .econ-label { color: var(--critical); }
+  .econ-cell.neutral .econ-label { color: var(--gold); }
+
+  .econ-list {
+    list-style: none;
+  }
+
+  .econ-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .econ-list li:last-child { border-bottom: none; }
+
+  .econ-list li::before {
+    content: '→';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .econ-cell.positive .econ-list li::before { color: var(--safe); }
+  .econ-cell.negative .econ-list li::before { color: var(--critical); }
+  .econ-cell.neutral .econ-list li::before { color: var(--gold); }
+
+  /* ─── ROADMAP ─── */
+  .roadmap {
+    position: relative;
+    padding-right: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), var(--border));
+  }
+
+  .road-item {
+    position: relative;
+    padding-bottom: 3rem;
+  }
+
+  .road-item::before {
+    content: '';
+    position: absolute;
+    right: -3.35rem;
+    top: 0.3rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px rgba(201,168,76,0.5);
+  }
+
+  .road-phase {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .road-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .road-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .road-deliverables {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .deliverable {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold-light);
+  }
+
+  /* ─── DECLARATION ─── */
+  .declaration {
+    background: var(--surface);
+    border: 1px solid var(--gold);
+    padding: 4rem;
+    margin-bottom: 6rem;
+    position: relative;
+    text-align: center;
+  }
+
+  .declaration::before,
+  .declaration::after {
+    content: '◆';
+    position: absolute;
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+
+  .declaration::before { top: 1rem; right: 1rem; }
+  .declaration::after { bottom: 1rem; left: 1rem; }
+
+  .declaration h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  .declaration p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    line-height: 2;
+  }
+
+  .declaration .signature {
+    margin-top: 3rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .footer-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    background: rgba(5,7,15,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight-box {
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .highlight-box p {
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.9;
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 3rem;
+    background: var(--border);
+  }
+
+  .compare-cell {
+    background: var(--surface);
+    padding: 1.5rem;
+  }
+
+  .compare-cell.header {
+    background: var(--deep);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .compare-cell.header.left { color: var(--critical); }
+  .compare-cell.header.right { color: var(--safe); }
+
+  .compare-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .compare-item:last-child { border-bottom: none; }
+
+  .compare-item .icon { flex-shrink: 0; font-size: 0.9rem; }
+
+  /* ─── PROGRESS BARS ─── */
+  .progress-section {
+    margin-bottom: 3rem;
+  }
+
+  .progress-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .progress-pct {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to left, var(--gold), var(--cyan-light));
+    transition: width 1s ease;
+  }
+
+  .progress-fill.partial {
+    background: linear-gradient(to left, var(--warning), rgba(255,140,0,0.3));
+  }
+
+  .progress-fill.critical {
+    background: linear-gradient(to left, var(--critical), rgba(255,68,68,0.3));
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">SCSS v2.0</div>
+  <ul class="nav-links">
+    <li><a href="#diagnosis">التشخيص</a></li>
+    <li><a href="#architecture">البنية</a></li>
+    <li><a href="#gaps">الثغرات</a></li>
+    <li><a href="#economic">الحوافز</a></li>
+    <li><a href="#roadmap">الخارطة</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  
+  <div class="seal">
+    <div class="seal-inner">SCSS<br>v2.0<br>2026</div>
+  </div>
+
+  <p class="hero-eyebrow">Sovereign Constitutional Security Suite</p>
+  
+  <h1 class="hero-title">
+    <span class="gold">الإطار الدستوري الكامل</span><br>
+    <span class="dim">لحوكمة الذكاء الاصطناعي</span>
+  </h1>
+  
+  <p class="hero-subtitle">
+    الوثيقة الاستراتيجية الشاملة — بناءً على درس فبراير 2026 وما كشفه من ثغرات جوهرية 
+    في حوكمة الذكاء الاصطناعي العسكري والمدني
+  </p>
+
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">الإصدار</span>
+      <span class="meta-value">v2.0-STRATEGIC</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">التاريخ</span>
+      <span class="meta-value">2026.04.01</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">التصنيف</span>
+      <span class="meta-value">مفتوح المصدر</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">الحالة</span>
+      <span class="meta-value">نشط</span>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 1: DIAGNOSIS -->
+<section class="section" id="diagnosis">
+  <div class="section-header">
+    <div class="section-number">01</div>
+    <div class="section-title-block">
+      <div class="subtitle">Crisis Analysis • تحليل الأزمة</div>
+      <h2>لماذا فشلت الحوكمة في فبراير 2026</h2>
+    </div>
+  </div>
+
+  <div class="crisis-box">
+    <p>
+      في 28 فبراير 2026، استخدمت الولايات المتحدة نموذج <strong>Claude</strong> عبر منظومة Palantir Maven 
+      لتوليد أكثر من <strong>1,000 هدف في 24 ساعة الأولى</strong> من العملية العسكرية على إيران — 
+      بعد ساعات قليلة فقط من إعلان حظره رسمياً. هذا الحدث يمثل أول استخدام موثق لنموذج ذكاء اصطناعي توليدي 
+      في استهداف بشري واسع النطاق في التاريخ.
+    </p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card gold">
+      <div class="stat-value">1,000+</div>
+      <div class="stat-label">هدف عسكري ولّده كلود في 24 ساعة</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-value">< 2 دقيقة</div>
+      <div class="stat-label">وقت المراجعة البشرية لكل هدف</div>
+    </div>
+    <div class="stat-card cyan">
+      <div class="stat-value">$200M</div>
+      <div class="stat-label">قيمة عقد Anthropic مع البنتاغون</div>
+    </div>
+    <div class="stat-card warn">
+      <div class="stat-value">0</div>
+      <div class="stat-label">إطار حوكمة دستوري مُفعَّل</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-cell header left">نموذج الحوكمة الذي فشل</div>
+    <div class="compare-cell header right">نموذج الحوكمة المطلوب</div>
+    
+    <div class="compare-cell">
+      <div class="compare-item"><span class="icon">✗</span> قيود تعاقدية قابلة للتجاوز</div>
+      <div class="compare-item"><span class="icon">✗</span> الإنسان "على الحلقة" لا فيها</div>
+      <div class="compare-item"><span class="icon">✗</span> لا سجل تدقيق مستقل</div>
+      <div class="compare-item"><span class="icon">✗</span> لا قيد زمني على القرار</div>
+      <div class="compare-item"><span class="icon">✗</span> لا حماية للمدنيين مُدمجة معمارياً</div>
+      <div class="compare-item"><span class="icon">✗</span> المساءلة مستحيلة قانونياً</div>
+    </div>
+    <div class="compare-cell">
+      <div class="compare-item"><span class="icon">✓</span> قيود بنيوية غير قابلة للتجاوز</div>
+      <div class="compare-item"><span class="icon">✓</span> الإنسان في الحلقة بضمانة تقنية</div>
+      <div class="compare-item"><span class="icon">✓</span> Immutable Audit Ledger</div>
+      <div class="compare-item"><span class="icon">✓</span> Temporal Constraint Engine</div>
+      <div class="compare-item"><span class="icon">✓</span> Civilian Protection Protocol</div>
+      <div class="compare-item"><span class="icon">✓</span> سلسلة مسؤولية كريبتوغرافية</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <p>
+      <strong>الدرس الجوهري:</strong> المشكلة ليست في غياب القيم — Anthropic تملك قيماً. 
+      المشكلة في أن القيم بدون بنية تقنية دستورية هي نوايا حسنة قابلة للتجاوز في ساعات. 
+      SCSS v2.0 يحول القيم من تعهدات إلى بنية لا يمكن كسرها.
+    </p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 2: ARCHITECTURE -->
+<section class="section" id="architecture">
+  <div class="section-header">
+    <div class="section-number">02</div>
+    <div class="section-title-block">
+      <div class="subtitle">Complete Architecture • البنية الكاملة</div>
+      <h2>SCSS v2.0 — الطبقات التسع</h2>
+    </div>
+  </div>
+
+  <div class="arch-stack">
+    
+    <div class="arch-layer constitutional">
+      <div>
+        <div class="layer-id">LAYER-0 // CONSTITUTIONAL-FOUNDATION</div>
+      </div>
+      <div>
+        <div class="layer-name">الطبقة الدستورية الأساسية</div>
+        <div class="layer-name-en">Constitutional Foundation — HDPL + Core Principles</div>
+        <div class="layer-desc">HDPL Compiler، مبادئ الحوكمة الدستورية، تعريف القيم الجذرية. لا يمكن لأي طبقة أخرى تجاوزها.</div>
+      </div>
+      <div><span class="layer-status status-exists">موجود ✓</span></div>
+    </div>
+
+    <div class="arch-layer">
+      <div>
+        <div class="layer-id">LAYER-1 // RISK-EVALUATION</div>
+      </div>
+      <div>
+        <div class="layer-name">واجهة تقييم المخاطر</div>
+        <div class="layer-name-en">RiskProvider Interface — Plugin Ecosystem</div>
+        <div class="layer-desc">HTTP POST /risk endpoint، توفير تنوع المزودين، منع فشل النموذج المتضامن. العمود الفقري للنظام البيئي.</div>
+      </div>
+      <div><span class="layer-status status-exists">موجود ✓</span></div>
+    </div>
+
+    <div class="arch-layer">
+      <div>
+        <div class="layer-id">LAYER-2 // GOVERNANCE-LEGITIMACY</div>
+      </div>
+      <div>
+        <div class="layer-name">بروتوكول الشرعية التنظيمية</div>
+        <div class="layer-name-en">Governance Legitimacy Protocol — Profiles</div>
+        <div class="layer-desc">SCSS-UNIVERSAL، SCSS-EU، SCSS-Research. ربط متطلبات الامتثال بالسياق التنظيمي.</div>
+      </div>
+      <div><span class="layer-status status-exists">موجود ✓</span></div>
+    </div>
+
+    <div class="arch-layer">
+      <div>
+        <div class="layer-id">LAYER-3 // ANTI-CAPTURE</div>
+      </div>
+      <div>
+        <div class="layer-name">بنية مكافحة الاختطاف</div>
+        <div class="layer-name-en">Anti-Capture Architecture + Multi-Sig Evolution</div>
+        <div class="layer-desc">Hash anchoring دستوري، توقيعات متعددة بتنوع أدوار، منع التحول المؤسسي التدريجي.</div>
+      </div>
+      <div><span class="layer-status status-exists">موجود ✓</span></div>
+    </div>
+
+    <div class="arch-layer critical missing">
+      <div>
+        <div class="layer-id">LAYER-4 // TEMPORAL-CONSTRAINT</div>
+      </div>
+      <div>
+        <div class="layer-name">محرك القيود الزمنية</div>
+        <div class="layer-name-en">Temporal Constraint Engine — Decision Pacing</div>
+        <div class="layer-desc">فرض أوقات تداول دنيا للقرارات الحرجة. يمنع "التوقيع الإداري" بدلاً من القرار الحقيقي. 1,000 هدف/24h = محظور تقنياً.</div>
+      </div>
+      <div><span class="layer-status status-missing">مفقود ✗</span></div>
+    </div>
+
+    <div class="arch-layer critical missing">
+      <div>
+        <div class="layer-id">LAYER-5 // IMMUTABLE-AUDIT</div>
+      </div>
+      <div>
+        <div class="layer-name">سجل التدقيق الدستوري اللامتغير</div>
+        <div class="layer-name-en">Immutable Constitutional Audit Ledger</div>
+        <div class="layer-desc">سجل موزع لا يُمحى لكل قرار مع سلسلة مسؤولية كريبتوغرافية. يحل مشكلة "لا أحد مسؤول" على المستوى المعماري.</div>
+      </div>
+      <div><span class="layer-status status-missing">مفقود ✗</span></div>
+    </div>
+
+    <div class="arch-layer critical missing">
+      <div>
+        <div class="layer-id">LAYER-6 // PHYSICAL-WORLD</div>
+      </div>
+      <div>
+        <div class="layer-name">حوكمة التدخل في العالم الفيزيائي</div>
+        <div class="layer-name-en">Physical World Interface Governance</div>
+        <div class="layer-desc">بروتوكول منفصل للقرارات ذات الأثر الفيزيائي المباشر. Civilian Protection Protocol. لا استثناءات، لا emergency bypass.</div>
+      </div>
+      <div><span class="layer-status status-missing">مفقود ✗</span></div>
+    </div>
+
+    <div class="arch-layer missing">
+      <div>
+        <div class="layer-id">LAYER-7 // FEDERATED-NODES</div>
+      </div>
+      <div>
+        <div class="layer-name">شبكة النودز الدستورية الموزعة</div>
+        <div class="layer-name-en">Federated Constitutional Nodes Network</div>
+        <div class="layer-desc">7 نودز مستقلة جغرافياً، consensus threshold 5/7، لا جهة واحدة تملك السيطرة الكاملة. يمنع الاختطاف المؤسسي.</div>
+      </div>
+      <div><span class="layer-status status-missing">مفقود ✗</span></div>
+    </div>
+
+    <div class="arch-layer missing">
+      <div>
+        <div class="layer-id">LAYER-8 // ECONOMIC-INCENTIVES</div>
+      </div>
+      <div>
+        <div class="layer-name">طبقة الحوافز الاقتصادية</div>
+        <div class="layer-name-en">Economic Incentive Alignment Layer — Anti-Race-to-Bottom</div>
+        <div class="layer-desc">الطبقة الأكثر إلحاحاً. تجعل الامتثال القرار العقلاني الأرخص. تكسر Race to the Bottom ليس بالإلزام بل بهيكل الحوافز.</div>
+      </div>
+      <div><span class="layer-status status-new">جديد — أولوية قصوى</span></div>
+    </div>
+
+  </div>
+
+  <div class="progress-section">
+    <h3 style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 1.5rem; text-transform: uppercase;">اكتمال SCSS الحالي</h3>
+    
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-name">التصميم التقني الأساسي</span>
+        <span class="progress-pct">80%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+    </div>
+    
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-name">الربط بالقانون الدولي</span>
+        <span class="progress-pct">40%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill partial" style="width: 40%"></div></div>
+    </div>
+    
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-name">طبقة الحوافز الاقتصادية</span>
+        <span class="progress-pct">20%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill critical" style="width: 20%"></div></div>
+    </div>
+
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-name">التحقق المعماري من هوية النموذج</span>
+        <span class="progress-pct">10%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill critical" style="width: 10%"></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 3: CRITICAL GAPS -->
+<section class="section" id="gaps">
+  <div class="section-header">
+    <div class="section-number">03</div>
+    <div class="section-title-block">
+      <div class="subtitle">Critical Gaps • الثغرات الحرجة</div>
+      <h2>ما يجب بناؤه — المواصفات التقنية</h2>
+    </div>
+  </div>
+
+  <div class="principle-grid">
+
+    <div class="principle-card">
+      <div class="p-icon">⏱</div>
+      <div class="p-title">Temporal Constraint Engine</div>
+      <p class="p-desc">
+        يفرض حداً أدنى من وقت التداول لكل فئة قرار. القرارات المصيرية تستغرق 72 ساعة كحد أدنى. 
+        يرفض النظام التنفيذ فيزيائياً قبل انتهاء الوقت. لا يمكن تجاوزه بأي صلاحية إدارية.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+        <pre><span class="key">CRITICAL_IRREVERSIBLE:</span>
+  <span class="val">min_deliberation: 72h</span>
+  <span class="val">human_reviews: 5</span>
+  <span class="critical">override: PROHIBITED</span>
+
+<span class="key">HIGH_RISK:</span>
+  <span class="val">min_deliberation: 4h</span>
+  <span class="val">human_reviews: 2</span></pre>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="p-icon">🔒</div>
+      <div class="p-title">Immutable Audit Ledger</div>
+      <p class="p-desc">
+        كل قرار يُسجَّل بـ cryptographic hash غير قابل للتغيير. 
+        سلسلة مسؤولية كاملة: النموذج + الإنسان المُوافق + الوقت + السياق. 
+        موزع على nodes مستقلة. لا جهة واحدة تستطيع الحذف.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+        <pre><span class="key">AuditEntry:</span>
+  <span class="val">hash: SHA3-256(decision)</span>
+  <span class="val">model_signature: required</span>
+  <span class="val">human_chain: required</span>
+  <span class="val">context_snapshot: required</span>
+  <span class="safe">immutable: true</span></pre>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="p-icon">🛡</div>
+      <div class="p-title">Civilian Protection Protocol</div>
+      <p class="p-desc">
+        طبقة دستورية مخصصة لحماية غير المقاتلين مُطبَّقة تقنياً. 
+        أي قرار يؤثر على حياة بشرية يستلزم Constitutional Clearance Level 5. 
+        لا استثناءات. لا emergency bypass. هذا الفرق بين الأخلاق التعاقدية والمعمارية.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+        <pre><span class="key">if</span> <span class="val">action.affects_human_life:</span>
+  <span class="critical">override_all: true</span>
+  <span class="val">clearance: LEVEL_5</span>
+  <span class="safe">abort_capability: ALWAYS</span>
+  <span class="critical">emergency_bypass: NONE</span></pre>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="p-icon">🌐</div>
+      <div class="p-title">Federated Constitutional Nodes</div>
+      <p class="p-desc">
+        شبكة من 7 nodes مستقلة جغرافياً تتحقق من الشرعية الدستورية في real-time. 
+        consensus threshold 5/7. أي node يمكنه إصدار إنذار. 
+        3 nodes تستطيع تعليق العملية. 5 nodes تستطيع سحب الشهادة.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+        <pre><span class="key">FederatedGovernance:</span>
+  <span class="val">nodes: 7</span>
+  <span class="val">geo_distribution: required</span>
+  <span class="val">consensus: 5/7</span>
+  <span class="critical">single_entity: PROHIBITED</span></pre>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="p-icon">🔐</div>
+      <div class="p-title">Model Identity Verification</div>
+      <p class="p-desc">
+        يضمن أن النموذج المُشغَّل هو فعلاً النموذج الخاضع للحوكمة — لا نسخة معدّلة. 
+        Constitutional fingerprint يُتحقق منه في runtime. 
+        أي تغيير في أوزان النموذج يُبطل الشهادة الدستورية تلقائياً.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+        <pre><span class="key">attestation:</span>
+  <span class="val">fingerprint: verified</span>
+  <span class="val">weights_hash: matched</span>
+  <span class="critical">on_mismatch: HALT_ALL</span></pre>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="p-icon">📢</div>
+      <div class="p-title">Whistleblower Constitutional Channel</div>
+      <p class="p-desc">
+        آلية تقنية للإبلاغ عن الانتهاكات بشكل مجهول محمي كريبتوغرافياً. 
+        ليس بروتوكولاً إدارياً — بنية تقنية لا تُخترق. 
+        الحماية من الانتقام مضمونة دستورياً لا قانونياً فقط.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+        <pre><span class="key">WhistleblowerChannel:</span>
+  <span class="val">identity: CRYPTOGRAPHIC</span>
+  <span class="val">protection: CONSTITUTIONAL</span>
+  <span class="safe">retaliation: BLOCKED</span></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>المكون</th>
+          <th>يمنع التصعيد الخوارزمي</th>
+          <th>يحل انهيار المساءلة</th>
+          <th>يكسر Race to Bottom</th>
+          <th>الأولوية</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Temporal Constraint Engine</td>
+          <td><span class="dot-full">●●●</span></td>
+          <td><span class="dot-half">●●○</span></td>
+          <td><span class="dot-none">●○○</span></td>
+          <td>🔴 حرج</td>
+        </tr>
+        <tr>
+          <td>Immutable Audit Ledger</td>
+          <td><span class="dot-half">●●○</span></td>
+          <td><span class="dot-full">●●●</span></td>
+          <td><span class="dot-half">●●○</span></td>
+          <td>🔴 حرج</td>
+        </tr>
+        <tr>
+          <td>Civilian Protection Protocol</td>
+          <td><span class="dot-full">●●●</span></td>
+          <td><span class="dot-half">●●○</span></td>
+          <td><span class="dot-none">●○○</span></td>
+          <td>🔴 حرج</td>
+        </tr>
+        <tr>
+          <td>Federated Constitutional Nodes</td>
+          <td><span class="dot-half">●●○</span></td>
+          <td><span class="dot-full">●●●</span></td>
+          <td><span class="dot-full">●●●</span></td>
+          <td>🟠 عالي</td>
+        </tr>
+        <tr>
+          <td>Model Identity Verification</td>
+          <td><span class="dot-half">●●○</span></td>
+          <td><span class="dot-full">●●●</span></td>
+          <td><span class="dot-half">●●○</span></td>
+          <td>🟠 عالي</td>
+        </tr>
+        <tr>
+          <td>Economic Incentive Layer</td>
+          <td><span class="dot-none">●○○</span></td>
+          <td><span class="dot-half">●●○</span></td>
+          <td><span class="dot-full">●●●</span></td>
+          <td>🟡 استراتيجي</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 4: ECONOMIC LAYER -->
+<section class="section" id="economic">
+  <div class="section-header">
+    <div class="section-number">04</div>
+    <div class="section-title-block">
+      <div class="subtitle">Economic Constitutionalism • الدستورية الاقتصادية</div>
+      <h2>كسر Race to the Bottom — طبقة الحوافز</h2>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <p>
+      <strong>السؤال الاستراتيجي الأول:</strong> كيف يجعل SCSS الامتثال القرار العقلاني الأرخص لكل طرف — 
+      الشركة، الحكومة، والجيش؟ الإلزام يحتاج سلطة سياسية غير موجودة الآن. 
+      لكن جعل الامتثال أرخص مالياً، وأقل مخاطرة قانونياً، وأعلى قيمة تنافسية — هذا ممكن بنيوياً.
+    </p>
+  </div>
+
+  <div class="economic-grid">
+    <div class="econ-cell positive">
+      <span class="econ-label">مكافآت الامتثال</span>
+      <ul class="econ-list">
+        <li>أولوية في العقود الحكومية للدول الملتزمة</li>
+        <li>تأمين مخفض لمخاطر الذكاء الاصطناعي</li>
+        <li>حماية قانونية من المسؤولية عند الامتثال الكامل</li>
+        <li>شهادة SCSS تُعطي ميزة تنافسية موثقة</li>
+        <li>وصول أسرع للأسواق التنظيمية المقيدة</li>
+        <li>تخفيض تكاليف التدقيق والامتثال</li>
+      </ul>
+    </div>
+    <div class="econ-cell negative">
+      <span class="econ-label">تكاليف المخالفة</span>
+      <ul class="econ-list">
+        <li>إلغاء الشهادة علناً — سجل دائم</li>
+        <li>مسؤولية قانونية موثقة بـ Audit Ledger</li>
+        <li>استبعاد من الشبكات التقنية الحليفة</li>
+        <li>رفع تكاليف التأمين والضمانات</li>
+        <li>غرامات مالية تصاعدية مرتبطة بحجم الضرر</li>
+        <li>عزل تنافسي تدريجي من السوق</li>
+      </ul>
+    </div>
+    <div class="econ-cell neutral">
+      <span class="econ-label">آليات السوق</span>
+      <ul class="econ-list">
+        <li>SCSS Certification Authority مستقلة</li>
+        <li>Real-Time Compliance Dashboard عام</li>
+        <li>تصنيف ائتماني للامتثال الدستوري</li>
+        <li>صندوق مشترك لتقاسم تكاليف الامتثال</li>
+        <li>معيار صناعي de facto عبر كتلة حرجة</li>
+        <li>ضغط المستثمرين عبر ESG criteria</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text-primary); margin-bottom: 1.5rem;">
+    مسار التبني الواقعي — من المعيار إلى القانون
+  </h3>
+
+  <div class="code-block">
+    <pre><span class="comment">// المسار الواقعي لـ SCSS — لا يحتاج موافقة كل الدول</span>
+
+<span class="key">Phase 1:</span> <span class="val">الشركات تتبنى SCSS طوعاً</span>    <span class="comment">← ميزة تنافسية</span>
+    <span class="safe">↓</span>
+<span class="key">Phase 2:</span> <span class="val">يصبح شرطاً للتعاقد الحكومي</span>  <span class="comment">← EU + حلفاء</span>
+    <span class="safe">↓</span>
+<span class="key">Phase 3:</span> <span class="val">معيار صناعي de facto</span>        <span class="comment">← كتلة حرجة</span>
+    <span class="safe">↓</span>
+<span class="key">Phase 4:</span> <span class="val">يُدمج في تشريعات</span>             <span class="comment">← EU AI Act v2</span>
+    <span class="safe">↓</span>
+<span class="key">Phase 5:</span> <span class="val">ضغط دبلوماسي على غير الملتزمين</span> <span class="comment">← عزل تدريجي</span>
+
+<span class="comment">// هذا يشبه GDPR لا NPT — معيار لا معاهدة</span></pre>
+  </div>
+
+  <div class="highlight-box">
+    <p>
+      <strong>إجابة Security Dilemma:</strong> الدول تخشى الالتزام إذا لم تلتزم الأخرى. 
+      الحل التاريخي الوحيد: جعل تكلفة الخروج أعلى من تكلفة البقاء. 
+      الدول غير الملتزمة تجد أنظمتها مستبعدة من الشبكات الحليفة، 
+      شركاؤها يرفضون تبادل الاستخبارات معها، ومسؤوليتها القانونية أعلى.
+      <strong>ليس إلزاماً — بل عزلاً يجعل الانضمام أرخص.</strong>
+    </p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SECTION 5: ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="section-header">
+    <div class="section-number">05</div>
+    <div class="section-title-block">
+      <div class="subtitle">Implementation Roadmap • خارطة التنفيذ</div>
+      <h2>من الإطار إلى المعيار — الخطوات التالية</h2>
+    </div>
+  </div>
+
+  <div class="roadmap">
+    
+    <div class="road-item">
+      <div class="road-phase">المرحلة الأولى — فورياً</div>
+      <div class="road-title">سد الثغرات الحرجة الثلاث</div>
+      <div class="road-desc">
+        بناء Temporal Constraint Engine وتكاملها مع HDPL. 
+        تصميم Immutable Audit Ledger بمعيار cryptographic قابل للتدقيق المستقل. 
+        صياغة Civilian Protection Protocol كطبقة دستورية لا استثناءات فيها.
+      </div>
+      <div class="road-deliverables">
+        <span class="deliverable">TCE v1.0</span>
+        <span class="deliverable">Audit Ledger Spec</span>
+        <span class="deliverable">CPP Protocol</span>
+        <span class="deliverable">Reference Implementation</span>
+      </div>
+    </div>
+
+    <div class="road-item">
+      <div class="road-phase">المرحلة الثانية — 3 أشهر</div>
+      <div class="road-title">وثيقة الحوافز الاقتصادية</div>
+      <div class="road-desc">
+        بناء الإطار الاقتصادي الكامل لـ SCSS: هيكل المكافآت والعقوبات، 
+        آلية الشهادة والسحب، نموذج التصنيف الائتماني للامتثال. 
+        هذه الوثيقة تحول SCSS من مشروع أكاديمي إلى معيار صناعي قابل للتبني.
+      </div>
+      <div class="road-deliverables">
+        <span class="deliverable">Economic Framework</span>
+        <span class="deliverable">Certification Model</span>
+        <span class="deliverable">Incentive Spec</span>
+      </div>
+    </div>
+
+    <div class="road-item">
+      <div class="road-phase">المرحلة الثالثة — 6 أشهر</div>
+      <div class="road-title">Federated Nodes Network Prototype</div>
+      <div class="road-desc">
+        بناء النموذج الأولي لشبكة النودز الموزعة. 
+        اختبار آلية الإجماع. 
+        التواصل مع مؤسسات أكاديمية في 7 دول مختلفة لإنشاء أول شبكة nodes حقيقية.
+      </div>
+      <div class="road-deliverables">
+        <span class="deliverable">Node Prototype</span>
+        <span class="deliverable">Consensus Testing</span>
+        <span class="deliverable">7 Institution Partners</span>
+      </div>
+    </div>
+
+    <div class="road-item">
+      <div class="road-phase">المرحلة الرابعة — 12 شهراً</div>
+      <div class="road-title">SCSS Certification Authority Launch</div>
+      <div class="road-desc">
+        إطلاق هيئة الشهادات المستقلة. 
+        إصدار أول شهادة SCSS-COMPLIANT لنظام خارجي. 
+        Real-Time Compliance Dashboard عام. 
+        التقديم للدمج في EU AI Act revision.
+      </div>
+      <div class="road-deliverables">
+        <span class="deliverable">Cert Authority</span>
+        <span class="deliverable">First Certification</span>
+        <span class="deliverable">Public Dashboard</span>
+        <span class="deliverable">EU Submission</span>
+      </div>
+    </div>
+
+    <div class="road-item">
+      <div class="road-phase">المرحلة الخامسة — 24 شهراً</div>
+      <div class="road-title">SCSS كمعيار صناعي de facto</div>
+      <div class="road-desc">
+        كتلة حرجة من الشركات والمؤسسات تجعل عدم الامتثال مكلفاً. 
+        أول دولة تشترط SCSS في عقودها الحكومية. 
+        تحويل SCSS إلى مقياس مقبول لدى وكالات التصنيف ومؤسسات الاستثمار ESG.
+      </div>
+      <div class="road-deliverables">
+        <span class="deliverable">Industry Standard</span>
+        <span class="deliverable">Government Adoption</span>
+        <span class="deliverable">ESG Integration</span>
+        <span class="deliverable">SCSS Foundation v2</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PHILOSOPHICAL FOUNDATION -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-number">06</div>
+    <div class="section-title-block">
+      <div class="subtitle">Philosophical Foundation • الأساس الفلسفي</div>
+      <h2>ما يجعل SCSS مختلفاً عن كل ما سبق</h2>
+    </div>
+  </div>
+
+  <div class="principle-grid">
+    <div class="principle-card">
+      <div class="p-icon">⚖</div>
+      <div class="p-title">الدستور فوق السياسة</div>
+      <p class="p-desc">
+        في أي دولة قانون حقيقية، الدستور يعلو على قرارات البرلمان. 
+        SCSS يطبّق هذا المبدأ على حوكمة AI: 
+        الطبقة الدستورية التقنية تعلو على القرار السياسي. 
+        ليس لأنها تحل محله — بل لأنها تضع حدوداً لا يتجاوزها.
+      </p>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">🏛</div>
+      <div class="p-title">البنية لا النوايا</div>
+      <p class="p-desc">
+        Anthropic تملك قيماً. البنتاغون تجاوزها في ساعات. 
+        SCSS لا يراهن على نوايا أي طرف. 
+        يبني قيوداً معمارية تعمل بغض النظر عن نوايا المُشغِّل. 
+        الفرق بين قفل ورقي وقفل فولاذي.
+      </p>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">🧬</div>
+      <div class="p-title">التنسيق لا الاستبدال</div>
+      <p class="p-desc">
+        SCSS لا يستبدل القانون الدولي ولا الرقابة السياسية. 
+        يبني بنية التنسيق التي تجعل الثلاثة يعملون بتسلسل هرمي واضح 
+        بدلاً من التنافس على السلطة في لحظات الأزمة. 
+        الغائب لم يكن مكوناً — كان التنسيق.
+      </p>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">⏳</div>
+      <div class="p-title">البنية التحتية للحظة السياسية</div>
+      <p class="p-desc">
+        مدرسة بنات مينب — 150 طفلة. 
+        هذه اللحظة السياسية قادمة. 
+        حين تأتي، يحتاج المشرعون إطاراً جاهزاً. 
+        SCSS يبني هذا الإطار الآن — 
+        مثلما بنى الباحثون أسس GDPR قبل عقود من سنّه.
+      </p>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">🔑</div>
+      <div class="p-title">من يملك تعريف الخطر؟</div>
+      <p class="p-desc">
+        السؤال الأعمق في كل حوكمة AI: 
+        من يملك حق تعريف القيم التي تحكم النظام؟ 
+        ليس الشركة المبرمجة. ليس الحكومة المستخدمة. 
+        بل إطار دستوري مستقل — وهذا بالضبط ما يبنيه SCSS.
+      </p>
+    </div>
+    <div class="principle-card">
+      <div class="p-icon">🌍</div>
+      <div class="p-title">ضروري وغير كافٍ</div>
+      <p class="p-desc">
+        SCSS ليس الحل النهائي — ولا ادعاء بذلك. 
+        GDPR لم يحل مشكلة الخصوصية وحده. NPT لم يمنع الانتشار النووي وحده. 
+        لكن كلاهما أصبح نقطة مرجعية لا تُتجاهل. 
+        هذا هو الهدف الواقعي لـ SCSS.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- DECLARATION -->
+<div style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;">
+  <div class="declaration">
+    <h2>إعلان الأسس — SCSS v2.0</h2>
+    <p>
+      نحن ندرك أن الذكاء الاصطناعي دخل مرحلة لا رجعة فيها. 
+      حرب 2026 ليست نهاية تحول — بل بدايته. 
+      الأنظمة القادمة ستكون أسرع وأقوى وأقل خضوعاً للرقابة البشرية التقليدية.
+    </p>
+    <p>
+      نؤمن أن الحل ليس في منع التقنية، ولا في قبول الأمر الواقع. 
+      الحل في بناء البنية الدستورية التي تجعل الاستخدام المسؤول 
+      القرار العقلاني الأرخص — لا الاستثناء النبيل.
+    </p>
+    <p>
+      SCSS v2.0 ليس وعداً بحل كامل. 
+      هو التزام ببناء الإطار الذي تحتاجه اللحظة السياسية القادمة — 
+      قبل أن تأتي، لا بعدها.
+    </p>
+    <div class="signature">
+      SCSS — SOVEREIGN CONSTITUTIONAL SECURITY SUITE<br>
+      إبراهيم ✦ كلود — نتاج نقاش استراتيجي مشترك<br>
+      2026.04.01 — الإصدار الثاني
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SCSS v2.0</div>
+  <div class="footer-meta">
+    Sovereign Constitutional Security Suite<br>
+    DOI: 10.5281/zenodo.19177048 — Zenodo Publication<br>
+    مفتوح المصدر — جميع المكونات قابلة للتدقيق المستقل<br>
+    <br>
+    "القيم بدون بنية هي نوايا حسنة. البنية بدون قيم هي آلة. SCSS يبني الاثنين معاً."
+  </div>
+</footer>
+
+<script>
+  // Animate progress bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.width;
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.progress-fill').forEach(bar => {
+    const width = bar.style.width;
+    bar.style.width = '0%';
+    bar.dataset.width = width;
+    observer.observe(bar);
+  });
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 100;
+      if (window.scrollY >= top) current = section.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === `#${current}` 
+        ? 'var(--gold)' : '';
+    });
+  });
+
+  // Stagger arch layers
+  document.querySelectorAll('.arch-layer').forEach((layer, i) => {
+    layer.style.opacity = '0';
+    layer.style.transform = 'translateX(20px)';
+    setTimeout(() => {
+      layer.style.transition = 'all 0.5s ease';
+      layer.style.opacity = '1';
+      layer.style.transform = 'translateX(0)';
+    }, 100 * i);
+  });
+</script>
+</body>
+</html>
