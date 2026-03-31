@@ -4,6 +4,9 @@
 **Author:** Ibrahim Naif Ibrahim Hassan Ghonem | **Year:** 2026  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19177048.svg)](https://doi.org/10.5281/zenodo.19177048)  
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+---
+> 🌐 **[Explore the SCSS v2.0 Interactive Portal & Strategic Roadmap](https://ramyromel.github.io/SCSS/)**  
+> *Dive into the visual architecture, critical gaps analysis, the economic incentive layer, and the future of AI Constitutional Governance.*
 
 ---
 
