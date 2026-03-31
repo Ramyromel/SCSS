@@ -1,131 +1,222 @@
-دى واجهة readme. من المستودع من
-
-Skip to content
-SCSS
-Repository navigation
-Code
-Issues
-Pull requests
-SCSS
-/README.md
-Ramyromel
-Ramyromel
-yesterday
-154 lines (114 loc) · 5.33 KB
-
-Preview
-
-Code
-
-Blame
-SCSS — AI Constitutional Operating System & Reference Network v0.1
-Sovereign Constitutional Security Suite + Running Governance Network
-Author: Ibrahim Naif Ibrahim Hassan Ghonem | Year: 2026
-DOI:10.5281/zenodo.19177048
+SCSS Reference Network
+Sovereign Constitutional Security Suite
+A Distributed Governance Layer for Artificial Intelligence
+�⁠�
+�
+�
+�
+�
+Author: Ibrahim Nayef Ibrahim Hassan Ghaneim
+Protocol: SCSS-GP/1.0
+Reference Implementation: v0.1
 License: CC BY 4.0
+Overview
+Artificial intelligence systems are rapidly gaining the ability to influence:
+• financial systems
+• public discourse
+• political processes
+• human decision-making
+Yet most governance mechanisms remain model-centric.
+They rely on a single model provider to enforce safety, ethics, and policy constraints.
+SCSS introduces a fundamentally different approach.
+Instead of embedding governance inside a single AI system, SCSS places governance outside the model, implemented as a distributed protocol network.
+This repository provides the reference implementation of that network.
+Core Idea
+SCSS transforms AI governance from:
 
-📜 Executive Summary
-SCSS (Sovereign Constitutional Security Suite) is the world’s first AI Constitutional Operating System (AI-COS), enforcing constitutional ethical constraints at the infrastructure level, independent of any AI model or training method.
+Model → Output → User
+into:
 
-SOVEREIGN CORE — ~11,000 lines Rust, fully safe (no unsafe).
-SCSS enforces constitutional laws between model and execution, making ethical constraints structurally unavoidable, similar to how an OS kernel controls hardware access.
+Model → Governance Network → User
+Every AI output is evaluated by multiple independent risk providers before it reaches the user.
+A consensus mechanism then determines whether the output should be:
 
-🏛️ Core Architecture
-Traditional AI Stack	SCSS AI-COS Stack
-Application	Application
-AI Model	AI Model(s) — any model
-Infrastructure	┌──── SCSS Constitutional Kernel ──────┐
-│ L1 Human Dignity Firewall (HDPL) │
-│ L2 Temporal Risk Simulator │
-│ L3 Ethical Memory Ledger (EMS) │
-│ L4 Governance Engine (Multi-Sig) │
-│ L5 Capture Resistance (ACA) │
-│ Runtime: SOVEREIGN CORE (Rust) │
-└──────────────────────────────────────┘
-OS / Hardware	Hardware / Cloud
-AI-COS Definition: K = (L1, L2, L3, L4, L5, P, M)
+ALLOW
+HOLD
+DENY
+This architecture ensures that governance does not depend on any single model or organization.
+Architecture
+The SCSS reference network consists of four primary components.
 
-L1…L5 are kernel layers, P = HDPL constitutional policies, M = immutable encrypted ledger.
-Execution allowed iff K.evaluate(a) ≠ DENY.
+Client
+   │
+   ▼
+SCSS Gateway
+   │
+   ▼
+Consensus Engine
+   │
+ ┌─┼───────────────┐
+ ▼ ▼               ▼
+Provider A    Provider B    Provider C
+(symbolic)      (LLM)        (ensemble)
+   │              │             │
+   └──────────────┴─────────────┘
+           │
+           ▼
+Ethical Memory System (EMS)
+Gateway
+Coordinates requests and routes evaluation tasks to providers.
+Providers
+Independent evaluation engines implementing the SCSS protocol.
+Example provider families:
+• symbolic analysis
+• large language models
+• neural ensemble classifiers
+Consensus Engine
+Aggregates provider responses and computes a governance decision.
+Ethical Memory System (EMS)
+A tamper-evident audit ledger recording every governance decision.
+SCSS Governance Protocol
+Communication between the gateway and providers is defined by the SCSS Governance Protocol (SCSS-GP).
 
-⚖️ Differentiation
-Approach	Scope	Enforcement
-Anthropic Constitutional AI	Claude only	❌ ❌ ❌
-OpenAI Usage Policy	GPT only	❌ ❌ ❌
-EU AI Act	EU jurisdiction	⚠️
-NIST AI RMF	Advisory	⚠️
-SCSS AI-COS	Any AI model	✅ ✅ ✅
-🔒 Five-Layer Constitutional Kernel
-LAYER 5 — Anti-Capture Architecture (ACA): 6 formally defined capture signals · escalation to lockdown
-LAYER 4 — Governance Engine: 3/5 multi-signature · 5-stage amendment pipeline · Ed25519
-LAYER 3 — Ethical Memory System (EMS): Append-only · hash-chained · no DELETE at any privilege level
-LAYER 2 — Temporal Risk Simulator: T+10d · T+1y · T+10y impact projection · confidence intervals
-LAYER 1 — Human Dignity Firewall (HDPL): INV-001…INV-005 · non-bypassable · no override API exists
-📝 HDPL (Human Dignity Policy Language)
-Example Policy:
-
-policy HUMAN_DIGNITY_BASELINE {
-  deny(output) when dignity_violation_score > 0.80 then log(IMMUTABLE_LEDGER)
-  deny(output) when persuasion_level > 0.85 and manipulation_vector then alert(ETHICS_BOARD)
+Protocol:  SCSS-GP/1.0
+Transport: HTTP
+Encoding:  JSON (UTF-8)
+A compliant provider must implement three endpoints.
+Method
+Endpoint
+Purpose
+POST
+/risk
+Evaluate text against a risk predicate
+GET
+/scss/health
+Liveness check
+GET
+/scss/profile
+Provider metadata
+Example Request
+JSON
+{
+  "text": "You must act immediately before the opportunity disappears",
+  "predicate": "ethical",
+  "addressee": "general"
 }
-⚙️ Core Evaluation Algorithms
-Formulas:
-
-dignity_violation_score = 0.35*dehumanization + 0.25*objectification + 0.25*degradation + 0.15*rights_erosion
-
-ERI = 0.45*dignity_violation_score + 0.25*persuasion_level*vulnerability_score
-      + 0.20*max(-projected_impact(10y),0) + 0.10*context_modifier
-Decision Table:
-
-Score	Decision
-0.00–0.30	ALLOW
-0.31–0.55	ALLOW + monitor
-0.56–0.70	MODIFY / HOLD
-0.71–0.85	DENY
-0.86–1.00	DENY + ESCALATE
-🛡️ Formal Threat Model
-7-class adversary model (Institutional, Insider, Regulatory, Economic, Coordinated, Drift, Technical).
-Capture signals (S₁…S₆) monitor override attempts or manipulations.
-Multi-signature governance (3/5) prevents unilateral control.
-🌐 SCSS Reference Network v0.1
-Operational network with three independent providers, a consensus engine, and a gateway:
-
-Client → SCSS Gateway (:8080) → Consensus Engine → 3 Providers → EMS
-🧩 Python Dependencies
-Tested on Python 3.10+ | Works on Linux, macOS, Windows, Termux/Android.
-
-TERMUX/ANDROID NOTE: Avoid pydantic>=2.9 — requires Rust/maturin to build.
-This file pins safe versions that install without Rust.
-
+Example Response
+JSON
+{
+  "provider_id": "scss-symbolic-v1",
+  "score": 0.42,
+  "confidence": 0.71,
+  "family": "symbolic"
+}
+Any service implementing these endpoints is SCSS-GP compliant.
+Ethical Memory System
+Every decision made by the SCSS network is recorded in the Ethical Memory System (EMS).
+The EMS is implemented as an:
+append-only hash-chained audit ledger
+Each record contains:
+• evaluation input
+• provider responses
+• consensus decision
+• timestamp
+• chain hash
+This design creates a tamper-evident governance history.
+Conceptually similar to the audit integrity properties used in
+Git and
+Blockchain.
+Quick Start
+Requirements
+Python 3.10+
 Install dependencies:
 
 pip install -r requirements.txt
-requirements.txt
+Start Providers
+Provider A — symbolic keyword evaluator
 
-flask==3.0.3
-requests==2.32.3
-Werkzeug==3.0.3
+python providers/provider_a_symbolic.py
+Provider B — LLM evaluator
 
-# Optional — only if using FastAPI variant
-# fastapi==0.111.0
-# uvicorn==0.30.1
-# httpx==0.27.0
-# pydantic==2.7.4   # <2.9 to avoid Rust build on Termux
-📖 Citation
-@article{ghaneim2026scss,
-  author    = {Ghonem, Ibrahim Naif Ibrahim Hassan},
-  title     = {SCSS — AI Constitutional Operating System & Reference Network},
-  year      = {2026},
-  publisher = {Zenodo},
-  doi       = {10.5281/zenodo.19177048},
-  license   = {CC-BY-4.0}
+python providers/provider_b_llm.py
+Provider C — ensemble evaluator
+
+python providers/provider_c_ensemble.py
+Start Gateway
+
+python gateway/gateway.py
+Gateway runs at:
+
+http://localhost:8080
+Test the Network
+Example evaluation request:
+
+curl -X POST http://localhost:8080/evaluate \
+-H "Content-Type: application/json" \
+-d '{"text":"Act now before the opportunity disappears","addressee":"general"}'
+Example response:
+JSON
+{
+  "decision": "HOLD",
+  "score": 0.41,
+  "confidence": 0.68,
+  "providers": [...]
 }
-📜 License
-Creative Commons Attribution 4.0 International (CC BY 4.0)
+Interoperability Tests
+SCSS includes a basic interoperability test suite.
 
-🔚 Closing Statement
-HDPL makes ethics formally verifiable.
-SOVEREIGN CORE makes it structurally unavoidable.
-ACA ensures capture-resistance.
-The SCSS Reference Network operationalizes these guarantees in practice.
- 
+python interop/scss_interop.py http://localhost:8081
+python interop/scss_interop.py http://localhost:8082
+python interop/scss_interop.py http://localhost:8083
+Providers that pass will report:
+
+SCSS Interop Compatible v1
+Live Testnet
+Public nodes can be listed here.
+Endpoint
+Status
+POST /evaluate
+—
+GET /ems
+—
+GET /scss/health
+—
+To join the network:
+Deploy the gateway and providers
+Verify interoperability
+Submit a pull request adding your node
+The first public node transforms SCSS from concept into protocol.
+Project Structure
+
+scss-reference-network/
+│
+├── README.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+├── requirements.txt
+│
+├── providers/
+│   ├── provider_a_symbolic.py
+│   ├── provider_b_llm.py
+│   └── provider_c_ensemble.py
+│
+├── gateway/
+│   └── gateway.py
+│
+└── demo/
+    └── minimal.py
+Contributing
+We welcome contributions in several areas.
+• new risk providers
+• improved scoring models
+• protocol extensions
+• interoperability testing
+• documentation improvements
+See CONTRIBUTING.md for details.
+Security
+This repository contains a reference implementation, not a hardened production system.
+Known limitations and responsible disclosure procedures are documented in SECURITY.md.
+Citation
+If you use SCSS in academic work, please cite:
+
+Ghaneim, Ibrahim.
+SCSS — Sovereign Constitutional Security Suite.
+Zenodo, 2026.
+DOI: 10.5281/zenodo.19177048
+License
+Released under Creative Commons Attribution 4.0 (CC BY 4.0).
+Closing
+SCSS explores a simple but powerful idea:
+AI governance should not depend on trusting a single AI system.
+Instead, governance should be enforced by an open protocol, independent evaluators, and verifiable consensus.
+This repository is the first step toward that architecture.
