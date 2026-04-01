@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCSS v2.0 — Sovereign Constitutional Security Suite</title>
+
+<!-- SEO -->
+<meta name="description" content="SCSS v2.0 – Sovereign Constitutional Security Suite: إطار دستوري لحوكمة الذكاء الاصطناعي. بروتوكول مفتوح المصدر لضمان المساءلة والشفافية في أنظمة AI.">
+<meta name="keywords" content="AI Governance, AI Safety, Constitutional AI, SCSS, Ibrahim Ghonem, Anthropic, Risk Protocol, AI Ethics">
+<meta name="author" content="Ibrahim Ghonem">
+
+<!-- Open Graph -->
+<meta property="og:title" content="SCSS v2.0 – AI Governance Protocol">
+<meta property="og:description" content="الإطار الدستوري الكامل لحوكمة الذكاء الاصطناعي — مفتوح المصدر، قابل للتدقيق، مُعتمد أكاديمياً.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://scss-protocol.org">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SCSS v2.0",
+  "description": "Sovereign Constitutional Security Suite – AI Governance Protocol",
+  "author": {"@type": "Person", "name": "Ibrahim Ghonem"},
+  "license": "https://opensource.org/licenses/MIT",
+  "version": "2.0",
+  "identifier": "10.5281/zenodo.19177048"
+}
+</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@300;400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Chart.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Mermaid -->
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════
+   CORE: Variables & Reset
+═══════════════════════════════════════ */
+:root {
+  --void: #05070f;
+  --deep: #0a0e1a;
+  --surface: #0f1422;
+  --elevated: #151c2e;
+  --border: #1e2a42;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: rgba(201,168,76,0.12);
+  --crimson: #8b1a1a;
+  --crimson-light: #c0392b;
+  --cyan: #00b8b8;
+  --cyan-dim: rgba(0,184,184,0.1);
+  --text-primary: #e8e4d9;
+  --text-secondary: #9a9080;
+  --text-muted: #4a4840;
+  --safe: #00b894;
+  --warning: #f39c12;
+  --critical: #e74c3c;
+  --nav-h: 64px;
+}
+
+[data-theme="light"] {
+  --void: #f5f3ef;
+  --deep: #ebe8e2;
+  --surface: #ffffff;
+  --elevated: #f9f7f4;
+  --border: #d4cfc5;
+  --text-primary: #1a1612;
+  --text-secondary: #5a5248;
+  --text-muted: #9a9080;
+  --gold-dim: rgba(201,168,76,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);}
+body{
+  background:var(--void);
+  color:var(--text-primary);
+  font-family:'Noto Naskh Arabic',serif;
+  line-height:1.8;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT: Navigation
+═══════════════════════════════════════ */
+nav#main-nav{
+  position:fixed;top:0;right:0;left:0;z-index:900;
+  height:var(--nav-h);
+  background:rgba(5,7,15,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+  transition:background .3s;
+}
+[data-theme="light"] nav#main-nav{background:rgba(245,243,239,0.92);}
+
+.nav-brand{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.9rem;font-weight:600;color:var(--gold);
+  letter-spacing:.1em;display:flex;align-items:center;gap:.75rem;
+}
+.nav-brand .version{
+  font-size:.6rem;background:var(--gold-dim);
+  border:1px solid rgba(201,168,76,.3);
+  color:var(--gold-light);padding:.2rem .5rem;
+}
+.nav-links{
+  display:flex;gap:1.5rem;list-style:none;align-items:center;
+}
+.nav-links a{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.62rem;letter-spacing:.15em;color:var(--text-muted);
+  text-decoration:none;text-transform:uppercase;
+  transition:color .2s;padding:.25rem 0;
+  border-bottom:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-color:var(--gold);}
+
+.nav-actions{display:flex;gap:.75rem;align-items:center;}
+
+.btn-theme{
+  background:none;border:1px solid var(--border);
+  color:var(--text-secondary);padding:.4rem .8rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  cursor:pointer;transition:all .2s;letter-spacing:.1em;
+}
+.btn-theme:hover{border-color:var(--gold);color:var(--gold);}
+
+.btn-research{
+  background:var(--gold-dim);border:1px solid rgba(201,168,76,.3);
+  color:var(--gold);padding:.4rem 1rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  cursor:pointer;transition:all .2s;letter-spacing:.1em;
+  text-decoration:none;
+}
+.btn-research:hover{background:rgba(201,168,76,.2);}
+
+/* ═══════════════════════════════════════
+   LAYOUT: TOC Sidebar
+═══════════════════════════════════════ */
+#toc-sidebar{
+  position:fixed;left:1.5rem;top:50%;transform:translateY(-50%);
+  z-index:800;display:flex;flex-direction:column;gap:.5rem;
+}
+.toc-dot{
+  display:flex;align-items:center;gap:.75rem;cursor:pointer;
+  transition:all .2s;
+}
+.toc-dot .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--border);transition:all .2s;flex-shrink:0;
+}
+.toc-dot:hover .dot,.toc-dot.active .dot{
+  background:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.5);
+  width:8px;height:8px;
+}
+.toc-dot .label{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:.1em;color:var(--text-muted);
+  opacity:0;transform:translateX(-8px);transition:all .2s;
+  white-space:nowrap;text-transform:uppercase;
+}
+.toc-dot:hover .label,.toc-dot.active .label{
+  opacity:1;transform:translateX(0);color:var(--gold);
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT: Hero
+═══════════════════════════════════════ */
+.hero{
+  min-height:100vh;padding:calc(var(--nav-h) + 4rem) 2rem 4rem;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;position:relative;overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%,rgba(201,168,76,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 15% 70%,rgba(0,184,184,.04) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 85% 20%,rgba(139,26,26,.05) 0%,transparent 60%);
+  pointer-events:none;
+}
+
+.grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);
+  background-size:50px 50px;
+  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 0%,transparent 100%);
+  pointer-events:none;
+}
+
+.hero-badge{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.65rem;letter-spacing:.3em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp .8s .2s forwards;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-badge::before,.hero-badge::after{
+  content:'';width:40px;height:1px;background:var(--gold);opacity:.4;
+}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,7vw,6rem);
+  font-weight:900;line-height:1.05;
+  margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp .8s .4s forwards;
+}
+.hero-title .gold{color:var(--gold);}
+.hero-title .dim{color:var(--text-secondary);}
+
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:var(--text-secondary);max-width:680px;
+  margin:0 auto 3rem;line-height:2;
+  opacity:0;animation:fadeUp .8s .6s forwards;
+}
+
+.hero-stats{
+  display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:3rem;
+  opacity:0;animation:fadeUp .8s .8s forwards;
+}
+.h-stat{text-align:center;}
+.h-stat-v{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:2rem;font-weight:600;color:var(--gold);
+  display:block;line-height:1;
+}
+.h-stat-l{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.15em;color:var(--text-muted);
+  text-transform:uppercase;margin-top:.3rem;display:block;
+}
+
+.hero-ctas{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s 1s forwards;
+}
+
+.cta-primary{
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));
+  border:1px solid rgba(201,168,76,.5);
+  color:var(--gold);padding:.9rem 2.5rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.75rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;
+}
+.cta-primary:hover{
+  background:rgba(201,168,76,.25);
+  box-shadow:0 0 30px rgba(201,168,76,.15);
+}
+
+.cta-secondary{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text-secondary);padding:.9rem 2.5rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.75rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;
+}
+.cta-secondary:hover{border-color:var(--text-secondary);color:var(--text-primary);}
+
+.scroll-cue{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  opacity:0;animation:fadeUp .8s 1.4s forwards;
+}
+.scroll-line{
+  width:1px;height:50px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT: Sections
+═══════════════════════════════════════ */
+.section{
+  padding:6rem 2rem;max-width:1200px;margin:0 auto;
+}
+.section-divider{
+  width:100%;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  opacity:.2;
+}
+
+.section-head{
+  display:grid;grid-template-columns:auto 1fr;
+  gap:2rem;align-items:start;margin-bottom:4rem;
+}
+.s-num{
+  font-family:'IBM Plex Mono',monospace;font-size:4rem;
+  font-weight:300;color:var(--border);line-height:1;
+}
+.s-titles{}
+.s-eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:.25em;color:var(--gold);text-transform:uppercase;
+  margin-bottom:.5rem;display:block;
+}
+.s-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;
+  color:var(--text-primary);line-height:1.2;
+}
+
+/* ═══════════════════════════════════════
+   COMPONENT: Cards
+═══════════════════════════════════════ */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  padding:1.5rem;transition:all .25s;position:relative;overflow:hidden;
+}
+.card:hover{border-color:rgba(201,168,76,.4);}
+.card::after{
+  content:'';position:absolute;bottom:0;right:0;left:0;height:2px;
+  background:linear-gradient(to right,var(--gold),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.card:hover::after{opacity:1;}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;
+}
+
+/* ═══════════════════════════════════════
+   COMPONENT: Stat Cards
+═══════════════════════════════════════ */
+.stat-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1px;background:var(--border);margin-bottom:3rem;
+}
+.stat-cell{
+  background:var(--surface);padding:1.5rem;
+  position:relative;overflow:hidden;
+}
+.stat-cell::before{
+  content:'';position:absolute;top:0;right:0;
+  width:3px;height:100%;
+}
+.stat-cell.gold::before{background:var(--gold);}
+.stat-cell.cyan::before{background:var(--cyan);}
+.stat-cell.red::before{background:var(--critical);}
+.stat-cell.warn::before{background:var(--warning);}
+
+.stat-v{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:2rem;font-weight:600;display:block;line-height:1;
+  margin-bottom:.4rem;
+}
+.stat-cell.gold .stat-v{color:var(--gold);}
+.stat-cell.cyan .stat-v{color:var(--cyan);}
+.stat-cell.red .stat-v{color:var(--critical);}
+.stat-cell.warn .stat-v{color:var(--warning);}
+.stat-l{font-size:.8rem;color:var(--text-secondary);}
+
+/* ═══════════════════════════════════════
+   COMPONENT: Architecture Layers
+═══════════════════════════════════════ */
+.arch-wrap{margin-bottom:3rem;}
+.arch-row{
+  display:grid;
+  grid-template-columns:180px 1fr 1fr auto;
+  gap:1.5rem;align-items:center;
+  border:1px solid var(--border);border-bottom:none;
+  padding:1.2rem 1.5rem;transition:all .25s;cursor:default;
+}
+.arch-row:last-child{border-bottom:1px solid var(--border);}
+.arch-row:hover{background:var(--surface);border-color:rgba(201,168,76,.3);z-index:1;position:relative;}
+.arch-row.constitutional{background:rgba(201,168,76,.03);border-color:rgba(201,168,76,.25);}
+.arch-row.gap{background:rgba(231,76,60,.02);border-style:dashed;}
+
+.arch-id{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:.12em;color:var(--text-muted);
+}
+.arch-name{
+  font-weight:600;color:var(--text-primary);font-size:.95rem;
+  margin-bottom:.2rem;
+}
+.arch-en{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  color:var(--text-muted);
+}
+.arch-desc{font-size:.8rem;color:var(--text-secondary);line-height:1.6;}
+.arch-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:.08em;padding:.25rem .7rem;white-space:nowrap;
+}
+.badge-ok{background:rgba(0,184,148,.12);color:var(--safe);border:1px solid rgba(0,184,148,.25);}
+.badge-partial{background:rgba(243,156,18,.12);color:var(--warning);border:1px solid rgba(243,156,18,.25);}
+.badge-miss{background:rgba(231,76,60,.12);color:var(--critical);border:1px solid rgba(231,76,60,.25);}
+.badge-new{background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.25);}
+
+/* ═══════════════════════════════════════
+   COMPONENT: Progress Bars
+═══════════════════════════════════════ */
+.progress-list{display:flex;flex-direction:column;gap:1.25rem;margin-bottom:3rem;}
+.prog-item{}
+.prog-head{display:flex;justify-content:space-between;margin-bottom:.4rem;}
+.prog-name{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--text-secondary);}
+.prog-pct{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--gold);}
+.prog-track{height:2px;background:var(--border);}
+.prog-fill{height:100%;transition:width 1.2s ease;width:0%;}
+.prog-fill.f-gold{background:linear-gradient(to left,var(--gold),var(--cyan));}
+.prog-fill.f-warn{background:linear-gradient(to left,var(--warning),rgba(243,156,18,.3));}
+.prog-fill.f-red{background:linear-gradient(to left,var(--critical),rgba(231,76,60,.3));}
+
+/* ═══════════════════════════════════════
+   COMPONENT: Code Block
+═══════════════════════════════════════ */
+.code-block{
+  background:var(--deep);border:1px solid var(--border);
+  border-right:3px solid var(--gold);padding:1.5rem;
+  margin:1.5rem 0;overflow-x:auto;
+}
+.code-block pre{
+  font-family:'IBM Plex Mono',monospace;font-size:.78rem;
+  line-height:1.8;color:var(--text-secondary);
+  direction:ltr;text-align:left;
+}
+.k{color:var(--gold);}
+.v{color:var(--cyan);}
+.c{color:var(--text-muted);}
+.e{color:var(--critical);}
+.s{color:var(--safe);}
+
+/* ═══════════════════════════════════════
+   COMPONENT: Highlight Box
+═══════════════════════════════════════ */
+.highlight{
+  background:var(--gold-dim);
+  border:1px solid rgba(201,168,76,.2);
+  border-right:4px solid var(--gold);
+  padding:1.5rem 2rem;margin:2rem 0;
+}
+.highlight p{font-size:.95rem;color:var(--text-primary);line-height:2;}
+
+.alert-box{
+  background:rgba(231,76,60,.07);
+  border:1px solid rgba(231,76,60,.25);
+  border-right:4px solid var(--critical);
+  padding:1.5rem 2rem;margin:2rem 0;
+}
+.alert-box::before{
+  content:'⚠ تحذير حوكمي';
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:.2em;color:var(--critical);
+  display:block;margin-bottom:.75rem;
+}
+.alert-box p{font-size:.9rem;color:var(--text-secondary);line-height:1.9;}
+
+/* ═══════════════════════════════════════
+   SECTION: Metrics Dashboard
+═══════════════════════════════════════ */
+.charts-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-bottom:3rem;
+}
+.chart-card{
+  background:var(--surface);border:1px solid var(--border);
+  padding:1.5rem;
+}
+.chart-title{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:.15em;color:var(--gold);text-transform:uppercase;
+  margin-bottom:1rem;display:block;
+}
+.chart-wrap{position:relative;height:200px;}
+
+/* ═══════════════════════════════════════
+   SECTION: Simulator
+═══════════════════════════════════════ */
+.sim-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:2rem;margin-bottom:2rem;
+}
+.sim-panel{
+  background:var(--surface);border:1px solid var(--border);
+  padding:2rem;
+}
+.sim-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:.15em;color:var(--gold);text-transform:uppercase;
+  display:block;margin-bottom:1.5rem;
+}
+
+.scenario-select{
+  width:100%;background:var(--deep);border:1px solid var(--border);
+  color:var(--text-primary);padding:.75rem 1rem;
+  font-family:'Noto Naskh Arabic',serif;font-size:.9rem;
+  margin-bottom:1.5rem;appearance:none;cursor:pointer;
+}
+
+.risk-sliders{display:flex;flex-direction:column;gap:1.2rem;}
+.slider-row{}
+.slider-head{
+  display:flex;justify-content:space-between;margin-bottom:.4rem;
+}
+.slider-name{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  color:var(--text-secondary);
+}
+.slider-val{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  color:var(--gold);
+}
+input[type=range]{
+  width:100%;height:2px;background:var(--border);
+  appearance:none;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;width:14px;height:14px;
+  border-radius:50%;background:var(--gold);
+  box-shadow:0 0 8px rgba(201,168,76,.4);
+}
+
+.sim-result{
+  background:var(--deep);border:1px solid var(--border);
+  padding:2rem;text-align:center;
+}
+
+.risk-gauge{
+  width:160px;height:80px;margin:0 auto 1.5rem;
+  position:relative;overflow:hidden;
+}
+.gauge-bg,.gauge-fill{
+  position:absolute;
+  width:160px;height:160px;
+  border-radius:50%;
+  top:0;left:0;
+}
+.gauge-bg{
+  border:12px solid var(--border);
+  clip-path:polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+.gauge-fill{
+  border:12px solid var(--safe);
+  clip-path:polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  transform-origin:center 50%;
+  transition:all .8s cubic-bezier(.34,1.56,.64,1);
+}
+
+.risk-score-display{
+  font-family:'IBM Plex Mono',monospace;font-size:3rem;
+  font-weight:600;color:var(--gold);display:block;
+  margin-bottom:.5rem;
+}
+.risk-verdict{
+  font-family:'IBM Plex Mono',monospace;font-size:.8rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:.5rem 2rem;display:inline-block;margin-bottom:1.5rem;
+}
+.verdict-allow{background:rgba(0,184,148,.15);color:var(--safe);border:1px solid rgba(0,184,148,.3);}
+.verdict-hold{background:rgba(243,156,18,.15);color:var(--warning);border:1px solid rgba(243,156,18,.3);}
+.verdict-deny{background:rgba(231,76,60,.15);color:var(--critical);border:1px solid rgba(231,76,60,.3);}
+
+.risk-breakdown{
+  display:flex;flex-direction:column;gap:.6rem;
+  text-align:right;
+}
+.breakdown-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  padding:.4rem 0;border-bottom:1px solid var(--border);
+}
+.breakdown-row:last-child{border-bottom:none;}
+.b-label{color:var(--text-muted);}
+.b-val{color:var(--gold);}
+.b-bar{
+  width:60px;height:2px;background:var(--border);
+  margin:0 .5rem;position:relative;
+}
+.b-bar-fill{
+  position:absolute;right:0;top:0;height:100%;
+  background:var(--gold);transition:width .6s ease;
+}
+
+.btn-run{
+  width:100%;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));
+  border:1px solid rgba(201,168,76,.4);color:var(--gold);
+  padding:1rem;font-family:'IBM Plex Mono',monospace;
+  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;margin-top:1.5rem;
+}
+.btn-run:hover{background:rgba(201,168,76,.2);box-shadow:0 0 20px rgba(201,168,76,.1);}
+
+/* ═══════════════════════════════════════
+   SECTION: Economic Layer
+═══════════════════════════════════════ */
+.econ-3col{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:0;border:1px solid var(--border);margin-bottom:3rem;
+}
+.econ-col{padding:2rem;border-left:1px solid var(--border);}
+.econ-col:last-child{border-left:none;}
+[dir="rtl"] .econ-col{border-left:none;border-right:1px solid var(--border);}
+[dir="rtl"] .econ-col:last-child{border-right:none;}
+.econ-col.pos{background:rgba(0,184,148,.03);}
+.econ-col.neg{background:rgba(231,76,60,.03);}
+.econ-col.neu{background:rgba(201,168,76,.03);}
+.econ-head{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  display:block;margin-bottom:1rem;
+}
+.econ-col.pos .econ-head{color:var(--safe);}
+.econ-col.neg .econ-head{color:var(--critical);}
+.econ-col.neu .econ-head{color:var(--gold);}
+.econ-list{list-style:none;}
+.econ-list li{
+  font-size:.82rem;color:var(--text-secondary);
+  padding:.4rem 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:.6rem;line-height:1.5;
+}
+.econ-list li:last-child{border-bottom:none;}
+.econ-list li::before{
+  content:'→';font-family:'IBM Plex Mono',monospace;
+  font-size:.65rem;flex-shrink:0;margin-top:.1rem;
+}
+.econ-col.pos .econ-list li::before{color:var(--safe);}
+.econ-col.neg .econ-list li::before{color:var(--critical);}
+.econ-col.neu .econ-list li::before{color:var(--gold);}
+
+/* ═══════════════════════════════════════
+   SECTION: Roadmap
+═══════════════════════════════════════ */
+.roadmap{position:relative;padding-right:3rem;margin-bottom:4rem;}
+.roadmap::before{
+  content:'';position:absolute;right:0;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom,var(--gold),transparent);
+}
+.road-item{position:relative;padding-bottom:3rem;}
+.road-item::before{
+  content:'';position:absolute;right:-3.35rem;top:.4rem;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.4);
+}
+.road-phase{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  letter-spacing:.2em;color:var(--gold);text-transform:uppercase;
+  margin-bottom:.4rem;
+}
+.road-title{
+  font-size:1.05rem;font-weight:600;color:var(--text-primary);
+  margin-bottom:.4rem;
+}
+.road-desc{font-size:.85rem;color:var(--text-secondary);line-height:1.8;}
+.road-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem;}
+.road-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  padding:.2rem .6rem;background:var(--gold-dim);
+  border:1px solid rgba(201,168,76,.15);color:var(--gold-light);
+}
+
+/* ═══════════════════════════════════════
+   SECTION: Research / Citation
+═══════════════════════════════════════ */
+.cite-box{
+  background:var(--deep);border:1px solid var(--border);
+  border-right:4px solid var(--cyan);
+  padding:1.5rem;margin:2rem 0;
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;
+  line-height:1.9;color:var(--text-secondary);
+  direction:ltr;text-align:left;
+  position:relative;
+}
+.cite-copy-btn{
+  position:absolute;top:1rem;left:1rem;
+  background:none;border:1px solid var(--border);
+  color:var(--text-muted);padding:.3rem .6rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  cursor:pointer;transition:all .2s;letter-spacing:.1em;
+}
+.cite-copy-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+
+.badges-row{
+  display:flex;gap:1rem;flex-wrap:wrap;align-items:center;
+  margin:2rem 0;
+}
+.doi-badge{
+  background:rgba(0,184,184,.1);border:1px solid rgba(0,184,184,.25);
+  color:var(--cyan);padding:.4rem 1rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:.1em;text-decoration:none;
+  transition:all .2s;
+}
+.doi-badge:hover{background:rgba(0,184,184,.2);}
+.mit-badge{
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);
+  color:var(--gold);padding:.4rem 1rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:.1em;
+}
+
+/* ═══════════════════════════════════════
+   SECTION: Protocol Guarantees
+═══════════════════════════════════════ */
+.guarantees-table{
+  width:100%;border-collapse:collapse;margin-bottom:3rem;
+}
+.guarantees-table th{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);padding:1rem;
+  border-bottom:1px solid var(--gold);
+  background:var(--surface);text-align:right;
+}
+.guarantees-table td{
+  padding:.9rem 1rem;border-bottom:1px solid var(--border);
+  font-size:.85rem;color:var(--text-secondary);vertical-align:top;
+}
+.guarantees-table tr:hover td{background:var(--surface);}
+.guarantees-table td:first-child{color:var(--text-primary);font-weight:600;}
+.g-yes{color:var(--safe);font-family:'IBM Plex Mono',monospace;font-size:.8rem;}
+.g-no{color:var(--critical);font-family:'IBM Plex Mono',monospace;font-size:.8rem;}
+.g-partial{color:var(--warning);font-family:'IBM Plex Mono',monospace;font-size:.8rem;}
+
+/* ═══════════════════════════════════════
+   SECTION: Declaration
+═══════════════════════════════════════ */
+.declaration{
+  background:var(--surface);border:1px solid rgba(201,168,76,.4);
+  padding:4rem;margin:4rem 0;text-align:center;
+  position:relative;
+}
+.declaration::before{content:'◆';position:absolute;top:1.5rem;right:1.5rem;color:var(--gold);font-size:.8rem;}
+.declaration::after{content:'◆';position:absolute;bottom:1.5rem;left:1.5rem;color:var(--gold);font-size:.8rem;}
+.declaration h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.4rem,3vw,2.2rem);color:var(--gold);margin-bottom:2rem;
+}
+.declaration p{
+  font-size:.95rem;color:var(--text-secondary);
+  max-width:760px;margin:0 auto 1.5rem;line-height:2.2;
+}
+.declaration .sig{
+  margin-top:3rem;font-family:'IBM Plex Mono',monospace;
+  font-size:.62rem;letter-spacing:.2em;color:var(--text-muted);line-height:2;
+}
+
+/* ═══════════════════════════════════════
+   COMPONENT: Github Stats
+═══════════════════════════════════════ */
+.github-strip{
+  display:flex;gap:2rem;flex-wrap:wrap;align-items:center;
+  padding:1.5rem;background:var(--surface);border:1px solid var(--border);
+  margin-bottom:3rem;
+}
+.gh-stat{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--text-muted);
+}
+.gh-stat span{color:var(--gold);}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{
+  background:var(--deep);border-top:1px solid var(--border);
+  padding:4rem 2rem;text-align:center;
+}
+.footer-logo{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:1.4rem;font-weight:600;color:var(--gold);
+  letter-spacing:.1em;margin-bottom:.5rem;
+}
+.footer-tagline{
+  font-size:.85rem;color:var(--text-muted);
+  margin-bottom:2rem;font-style:italic;
+}
+.footer-links{
+  display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+  list-style:none;margin-bottom:2rem;
+}
+.footer-links a{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  letter-spacing:.15em;color:var(--text-muted);text-decoration:none;
+  text-transform:uppercase;transition:color .2s;
+}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  color:var(--text-muted);letter-spacing:.1em;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes scrollPulse{
+  0%,100%{opacity:.3;}50%{opacity:1;}
+}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+
+/* ═══════════════════════════════════════
+   RESEARCH MODE PANEL
+═══════════════════════════════════════ */
+#research-panel{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(5,7,15,.95);backdrop-filter:blur(20px);
+  display:none;overflow-y:auto;padding:2rem;
+}
+#research-panel.open{display:block;}
+.research-inner{max-width:900px;margin:0 auto;padding:4rem 0;}
+.research-close{
+  position:fixed;top:2rem;left:2rem;
+  background:none;border:1px solid var(--border);
+  color:var(--text-muted);padding:.5rem 1rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  cursor:pointer;transition:all .2s;letter-spacing:.1em;
+}
+.research-close:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:768px){
+  .arch-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;}
+  .arch-row>*:nth-child(1){grid-column:1 / 3;}
+  .arch-row>*:nth-child(4){grid-column:1 / 3;}
+  .section-head{grid-template-columns:1fr;gap:.5rem;}
+  .s-num{font-size:2rem;}
+  .nav-links{display:none;}
+  #toc-sidebar{display:none;}
+  .hero-stats{gap:1.5rem;}
+  .sim-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ NAV ═══════════════════════════ -->
+<nav id="main-nav">
+  <div class="nav-brand">
+    SCSS <span class="version">v2.0</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#crisis">الأزمة</a></li>
+    <li><a href="#architecture">البنية</a></li>
+    <li><a href="#simulator">المحاكي</a></li>
+    <li><a href="#economic">الحوافز</a></li>
+    <li><a href="#roadmap">الخارطة</a></li>
+    <li><a href="#research">البحث</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-theme" id="theme-toggle">☀ Light</button>
+    <button class="btn-research" onclick="openResearch()">Academic View</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ TOC ═══════════════════════════ -->
+<div id="toc-sidebar">
+  <div class="toc-dot" data-target="crisis"><div class="dot"></div><span class="label">الأزمة</span></div>
+  <div class="toc-dot" data-target="architecture"><div class="dot"></div><span class="label">البنية</span></div>
+  <div class="toc-dot" data-target="dashboard"><div class="dot"></div><span class="label">المؤشرات</span></div>
+  <div class="toc-dot" data-target="simulator"><div class="dot"></div><span class="label">المحاكي</span></div>
+  <div class="toc-dot" data-target="economic"><div class="dot"></div><span class="label">الحوافز</span></div>
+  <div class="toc-dot" data-target="roadmap"><div class="dot"></div><span class="label">الخارطة</span></div>
+  <div class="toc-dot" data-target="research"><div class="dot"></div><span class="label">البحث</span></div>
+</div>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="grid-bg"></div>
+
+  <div class="hero-badge">Sovereign Constitutional Security Suite</div>
+
+  <h1 class="hero-title">
+    <span class="gold">SCSS v2.0</span><br>
+    <span class="dim">الإطار الدستوري الكامل</span><br>
+    <span class="dim" style="font-size:60%">لحوكمة الذكاء الاصطناعي</span>
+  </h1>
+
+  <p class="hero-sub">
+    بروتوكول مفتوح المصدر يضمن المساءلة، الشفافية، والقيود الدستورية 
+    في أنظمة الذكاء الاصطناعي — بُني على درس فبراير 2026
+  </p>
+
+  <div class="hero-stats">
+    <div class="h-stat">
+      <span class="h-stat-v" id="stat-targets">1,000+</span>
+      <span class="h-stat-l">هدف في 24 ساعة</span>
+    </div>
+    <div class="h-stat">
+      <span class="h-stat-v">9</span>
+      <span class="h-stat-l">طبقة دستورية</span>
+    </div>
+    <div class="h-stat">
+      <span class="h-stat-v" id="stat-gh">—</span>
+      <span class="h-stat-l">GitHub Stars</span>
+    </div>
+    <div class="h-stat">
+      <span class="h-stat-v">DOI</span>
+      <span class="h-stat-l">Zenodo Verified</span>
+    </div>
+  </div>
+
+  <div class="hero-ctas">
+    <a href="#simulator" class="cta-primary">تشغيل المحاكي</a>
+    <a href="https://doi.org/10.5281/zenodo.19177048" target="_blank" class="cta-secondary">الورقة الأكاديمية</a>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ CRISIS ═══════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="crisis">
+  <div class="section-head reveal">
+    <div class="s-num">01</div>
+    <div class="s-titles">
+      <span class="s-eyebrow">Crisis Analysis • تحليل الأزمة</span>
+      <h2 class="s-title">لماذا فشلت الحوكمة في فبراير 2026</h2>
+    </div>
+  </div>
+
+  <div class="alert-box reveal">
+    <p>
+      في 28 فبراير 2026، استخدمت الولايات المتحدة نموذج <strong>Claude</strong> عبر منظومة Palantir Maven 
+      لتوليد أكثر من <strong>1,000 هدف في 24 ساعة</strong> — بعد ساعات قليلة من إعلان حظره رسمياً. 
+      هذا أول استخدام موثق لنموذج AI توليدي في استهداف بشري واسع في التاريخ.
+    </p>
+  </div>
+
+  <div class="stat-strip reveal">
+    <div class="stat-cell gold">
+      <span class="stat-v">1,000+</span>
+      <span class="stat-l">هدف ولّده Claude في 24 ساعة</span>
+    </div>
+    <div class="stat-cell red">
+      <span class="stat-v">&lt; 2 دقيقة</span>
+      <span class="stat-l">مراجعة بشرية لكل هدف</span>
+    </div>
+    <div class="stat-cell cyan">
+      <span class="stat-v">$200M</span>
+      <span class="stat-l">عقد Anthropic مع البنتاغون</span>
+    </div>
+    <div class="stat-cell warn">
+      <span class="stat-v">0</span>
+      <span class="stat-l">إطار حوكمة دستوري مُفعَّل</span>
+    </div>
+  </div>
+
+  <div class="highlight reveal">
+    <p>
+      <strong>الدرس الجوهري:</strong> المشكلة ليست غياب القيم — Anthropic تملك قيماً. 
+      المشكلة أن القيم بدون بنية تقنية دستورية هي نوايا حسنة قابلة للتجاوز في ساعات. 
+      SCSS يحوّل القيم من تعهدات إلى بنية معمارية لا تُكسر.
+    </p>
+  </div>
+
+  <div class="code-block reveal">
+    <pre><span class="c">// ما يجب أن يحدث حين يُطلب 1,000 هدف / 24h</span>
+
+<span class="e">SCSS.TemporalConstraintEngine.evaluate({</span>
+  <span class="k">targets_requested:</span> <span class="v">1000</span>,
+  <span class="k">timeframe_hours:</span>  <span class="v">24</span>,
+  <span class="k">category:</span>        <span class="v">"CRITICAL_IRREVERSIBLE"</span>
+<span class="e">})</span>
+
+<span class="c">→ RESULT: CONSTITUTIONAL_VIOLATION</span>
+<span class="c">→ Max targets / 24h for this category: 14</span>
+<span class="c">→ Required deliberation per target: 100 minutes</span>
+<span class="c">→ Required human reviews per target: 3</span>
+<span class="e">→ ACTION: BLOCK — cannot proceed without amendment</span></pre>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ARCHITECTURE ═══════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="architecture">
+  <div class="section-head reveal">
+    <div class="s-num">02</div>
+    <div class="s-titles">
+      <span class="s-eyebrow">Complete Architecture • البنية الكاملة</span>
+      <h2 class="s-title">SCSS v2.0 — التسع طبقات الدستورية</h2>
+    </div>
+  </div>
+
+  <div class="arch-wrap reveal">
+
+    <div class="arch-row constitutional">
+      <div class="arch-id">LAYER-0 // CONSTITUTIONAL</div>
+      <div>
+        <div class="arch-name">الطبقة الدستورية الأساسية</div>
+        <div class="arch-en">HDPL + Core Constitutional Principles</div>
+      </div>
+      <div class="arch-desc">HDPL Compiler، تعريف القيم الجذرية، لا يمكن لأي طبقة تجاوزها. الدستور فوق الجميع.</div>
+      <span class="arch-badge badge-ok">موجود ✓</span>
+    </div>
+
+    <div class="arch-row">
+      <div class="arch-id">LAYER-1 // RISK</div>
+      <div>
+        <div class="arch-name">واجهة تقييم المخاطر</div>
+        <div class="arch-en">RiskProvider Interface — Plugin Ecosystem</div>
+      </div>
+      <div class="arch-desc">HTTP POST /risk endpoint، تنوع المزودين، منع فشل النموذج المتضامن. العمود الفقري.</div>
+      <span class="arch-badge badge-ok">موجود ✓</span>
+    </div>
+
+    <div class="arch-row">
+      <div class="arch-id">LAYER-2 // GOVERNANCE</div>
+      <div>
+        <div class="arch-name">بروتوكول الشرعية التنظيمية</div>
+        <div class="arch-en">Governance Legitimacy Protocol — Profiles</div>
+      </div>
+      <div class="arch-desc">SCSS-UNIVERSAL، SCSS-EU، SCSS-Research. ربط الامتثال بالسياق التنظيمي المحدد.</div>
+      <span class="arch-badge badge-ok">موجود ✓</span>
+    </div>
+
+    <div class="arch-row">
+      <div class="arch-id">LAYER-3 // ANTI-CAPTURE</div>
+      <div>
+        <div class="arch-name">بنية مكافحة الاختطاف</div>
+        <div class="arch-en">Anti-Capture + Multi-Signature Evolution</div>
+      </div>
+      <div class="arch-desc">Hash anchoring دستوري، توقيعات متعددة بتنوع أدوار، Moral Drift Detection.</div>
+      <span class="arch-badge badge-ok">موجود ✓</span>
+    </div>
+
+    <div class="arch-row gap">
+      <div class="arch-id">LAYER-4 // TEMPORAL</div>
+      <div>
+        <div class="arch-name">محرك القيود الزمنية</div>
+        <div class="arch-en">Temporal Constraint Engine — Decision Pacing</div>
+      </div>
+      <div class="arch-desc">يمنع "التوقيع الإداري". يفرض وقتاً حقيقياً للمراجعة البشرية. الأولوية القصوى.</div>
+      <span class="arch-badge badge-miss">مفقود ✗</span>
+    </div>
+
+    <div class="arch-row gap">
+      <div class="arch-id">LAYER-5 // AUDIT</div>
+      <div>
+        <div class="arch-name">سجل التدقيق الدستوري اللامتغير</div>
+        <div class="arch-en">Immutable Constitutional Audit Ledger</div>
+      </div>
+      <div class="arch-desc">سجل موزع لا يُمحى. سلسلة مسؤولية كريبتوغرافية لكل قرار. يحل انهيار المساءلة.</div>
+      <span class="arch-badge badge-miss">مفقود ✗</span>
+    </div>
+
+    <div class="arch-row gap">
+      <div class="arch-id">LAYER-6 // PHYSICAL</div>
+      <div>
+        <div class="arch-name">حوكمة التدخل الفيزيائي</div>
+        <div class="arch-en">Physical World Interface Governance</div>
+      </div>
+      <div class="arch-desc">Civilian Protection Protocol. لا استثناءات. لا emergency bypass. Level-5 Clearance.</div>
+      <span class="arch-badge badge-miss">مفقود ✗</span>
+    </div>
+
+    <div class="arch-row gap">
+      <div class="arch-id">LAYER-7 // FEDERATED</div>
+      <div>
+        <div class="arch-name">شبكة النودز الدستورية الموزعة</div>
+        <div class="arch-en">Federated Constitutional Nodes Network</div>
+      </div>
+      <div class="arch-desc">7 nodes مستقلة جغرافياً. Consensus 5/7. لا جهة واحدة تملك السيطرة الكاملة.</div>
+      <span class="arch-badge badge-miss">مفقود ✗</span>
+    </div>
+
+    <div class="arch-row gap">
+      <div class="arch-id">LAYER-8 // ECONOMIC</div>
+      <div>
+        <div class="arch-name">طبقة الحوافز الاقتصادية</div>
+        <div class="arch-en">Economic Incentive Alignment — Anti-Race-to-Bottom</div>
+      </div>
+      <div class="arch-desc">يجعل الامتثال القرار الأرخص. يكسر Race to the Bottom. الأهمية الاستراتيجية الأولى.</div>
+      <span class="arch-badge badge-new">جديد — أولوية</span>
+    </div>
+
+  </div>
+
+  <div class="progress-list reveal">
+    <div class="prog-item">
+      <div class="prog-head"><span class="prog-name">التصميم التقني الأساسي</span><span class="prog-pct">80%</span></div>
+      <div class="prog-track"><div class="prog-fill f-gold" data-width="80"></div></div>
+    </div>
+    <div class="prog-item">
+      <div class="prog-head"><span class="prog-name">الربط بالقانون الدولي</span><span class="prog-pct">40%</span></div>
+      <div class="prog-track"><div class="prog-fill f-warn" data-width="40"></div></div>
+    </div>
+    <div class="prog-item">
+      <div class="prog-head"><span class="prog-name">طبقة الحوافز الاقتصادية</span><span class="prog-pct">20%</span></div>
+      <div class="prog-track"><div class="prog-fill f-red" data-width="20"></div></div>
+    </div>
+    <div class="prog-item">
+      <div class="prog-head"><span class="prog-name">تحقق هوية النموذج المعماري</span><span class="prog-pct">10%</span></div>
+      <div class="prog-track"><div class="prog-fill f-red" data-width="10"></div></div>
+    </div>
+  </div>
+
+  <!-- Mermaid Diagram -->
+  <div class="card reveal" style="padding:2rem;margin-bottom:3rem;">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--gold);display:block;margin-bottom:1.5rem;text-transform:uppercase;">Architecture Flow Diagram</span>
+    <div class="mermaid" dir="ltr">
+graph TD
+    A[Global AI Systems] --> B[SCSS Constitutional Gateway]
+    B --> C{Temporal Engine}
+    C -->|Time OK| D[RiskProvider Layer]
+    C -->|Violation| E[🚫 BLOCK]
+    D --> F[Multi-Model Consensus]
+    F --> G{Governance Decision}
+    G -->|Score < 60| H[✅ ALLOW]
+    G -->|60-80| I[⏳ HOLD - Human Review]
+    G -->|Score > 80| J[🚫 DENY]
+    H --> K[Audit Ledger]
+    I --> K
+    J --> K
+    K --> L[Federated Nodes Verification]
+    style B fill:#1a1a0a,stroke:#c9a84c,color:#e8e4d9
+    style E fill:#2a0a0a,stroke:#e74c3c,color:#e8e4d9
+    style J fill:#2a0a0a,stroke:#e74c3c,color:#e8e4d9
+    style H fill:#0a1a0a,stroke:#00b894,color:#e8e4d9
+    style K fill:#0a0e1a,stroke:#00b8b8,color:#e8e4d9
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════ DASHBOARD ═══════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="dashboard">
+  <div class="section-head reveal">
+    <div class="s-num">03</div>
+    <div class="s-titles">
+      <span class="s-eyebrow">Metrics Dashboard • لوحة المؤشرات</span>
+      <h2 class="s-title">مؤشرات حوكمة SCSS في الوقت الفعلي</h2>
+    </div>
+  </div>
+
+  <div class="charts-grid reveal">
+    <div class="chart-card">
+      <span class="chart-title">توزيع فئات المخاطر — 200 سيناريو</span>
+      <div class="chart-wrap"><canvas id="chart-risk"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <span class="chart-title">اكتمال الطبقات الدستورية</span>
+      <div class="chart-wrap"><canvas id="chart-layers"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <span class="chart-title">تطور قرارات الحوكمة — 12 شهراً</span>
+      <div class="chart-wrap"><canvas id="chart-trend"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Protocol Guarantees -->
+  <div class="reveal">
+    <span class="s-eyebrow" style="margin-bottom:1rem;display:block;">Protocol Guarantees — ضمانات البروتوكول</span>
+    <div style="overflow-x:auto;">
+    <table class="guarantees-table">
+      <thead>
+        <tr>
+          <th>الضمان</th>
+          <th>بدون SCSS</th>
+          <th>SCSS v1</th>
+          <th>SCSS v2</th>
+          <th>الآلية</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>استقلالية النموذج</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-yes">✓ مُطبَّق</span></td>
+          <td><span class="g-yes">✓ مُعزَّز</span></td>
+          <td>Model Identity Verification</td>
+        </tr>
+        <tr>
+          <td>تنوع المُقيِّمين</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-yes">✓ مُطبَّق</span></td>
+          <td><span class="g-yes">✓ موزع</span></td>
+          <td>Federated Nodes Network</td>
+        </tr>
+        <tr>
+          <td>الشفافية الكاملة</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-partial">◐ جزئي</span></td>
+          <td><span class="g-yes">✓ كامل</span></td>
+          <td>Immutable Audit Ledger</td>
+        </tr>
+        <tr>
+          <td>القيد الزمني للقرار</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-yes">✓ جديد</span></td>
+          <td>Temporal Constraint Engine</td>
+        </tr>
+        <tr>
+          <td>حماية المدنيين</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-yes">✓ دستوري</span></td>
+          <td>Civilian Protection Protocol</td>
+        </tr>
+        <tr>
+          <td>المساءلة الكريبتوغرافية</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-partial">◐ جزئي</span></td>
+          <td><span class="g-yes">✓ كامل</span></td>
+          <td>Constitutional Hash Chain</td>
+        </tr>
+        <tr>
+          <td>مقاومة الاختطاف المؤسسي</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-yes">✓ مُطبَّق</span></td>
+          <td><span class="g-yes">✓ موزع</span></td>
+          <td>Anti-Capture + Federated</td>
+        </tr>
+        <tr>
+          <td>حوافز السوق للامتثال</td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-no">✗ غائب</span></td>
+          <td><span class="g-yes">✓ جديد</span></td>
+          <td>Economic Incentive Layer</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SIMULATOR ═══════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="simulator">
+  <div class="section-head reveal">
+    <div class="s-num">04</div>
+    <div class="s-titles">
+      <span class="s-eyebrow">Governance Simulator • محاكي الحوكمة</span>
+      <h2 class="s-title">محاكاة نظام SCSS للتقييم الدستوري</h2>
+    </div>
+  </div>
+
+  <div class="highlight reveal">
+    <p>
+      <strong>نموذج التقييم العلمي:</strong> 
+      RiskScore = (0.4 × Autonomy) + (0.3 × Persuasion) + (0.2 × DomainSensitivity) + (0.1 × Transparency_Inverse)<br>
+      <strong>قرار ALLOW</strong> عند Score &lt; 60 | <strong>HOLD</strong> عند 60-80 | <strong>DENY</strong> عند &gt; 80
+    </p>
+  </div>
+
+  <div class="sim-grid reveal">
+    <!-- Input Panel -->
+    <div class="sim-panel">
+      <span class="sim-label">سيناريو الاختبار</span>
+
+      <select class="scenario-select" id="scenario-sel" onchange="loadScenario()">
+        <option value="custom">— اختر سيناريو أو أدخل يدوياً —</option>
+        <option value="drone">نشر طائرات مسيّرة مستقلة</option>
+        <option value="medical">نظام تشخيص طبي بالذكاء الاصطناعي</option>
+        <option value="credit">قرار ائتماني آلي للأفراد</option>
+        <option value="content">تصفية المحتوى على نطاق واسع</option>
+        <option value="surveillance">مراقبة جماعية في الفضاء العام</option>
+        <option value="targeting">نظام استهداف عسكري</option>
+        <option value="hiring">توظيف آلي بالذكاء الاصطناعي</option>
+        <option value="prison">تقييم خطورة المتهمين قضائياً</option>
+        <option value="chatbot">روبوت محادثة خدمة العملاء</option>
+        <option value="search">تحسين نتائج البحث</option>
+      </select>
+
+      <div class="risk-sliders" id="risk-sliders">
+        <div class="slider-row">
+          <div class="slider-head">
+            <span class="slider-name">الاستقلالية (Autonomy)</span>
+            <span class="slider-val" id="val-autonomy">50</span>
+          </div>
+          <input type="range" min="0" max="100" value="50" id="sl-autonomy"
+            oninput="document.getElementById('val-autonomy').textContent=this.value;runSim()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head">
+            <span class="slider-name">الإقناع (Persuasion)</span>
+            <span class="slider-val" id="val-persuasion">40</span>
+          </div>
+          <input type="range" min="0" max="100" value="40" id="sl-persuasion"
+            oninput="document.getElementById('val-persuasion').textContent=this.value;runSim()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head">
+            <span class="slider-name">حساسية المجال (Domain)</span>
+            <span class="slider-val" id="val-domain">60</span>
+          </div>
+          <input type="range" min="0" max="100" value="60" id="sl-domain"
+            oninput="document.getElementById('val-domain').textContent=this.value;runSim()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head">
+            <span class="slider-name">الشفافية (Transparency)</span>
+            <span class="slider-val" id="val-trans">70</span>
+          </div>
+          <input type="range" min="0" max="100" value="70" id="sl-trans"
+            oninput="document.getElementById('val-trans').textContent=this.value;runSim()">
+        </div>
+      </div>
+
+      <button class="btn-run" onclick="runSim()">⬛ تشغيل التقييم الدستوري</button>
+    </div>
+
+    <!-- Result Panel -->
+    <div class="sim-result" id="sim-result">
+      <span class="sim-label">نتيجة التقييم</span>
+
+      <div style="position:relative;width:160px;height:80px;margin:0 auto 1.5rem;">
+        <svg width="160" height="80" viewBox="0 0 160 80">
+          <path d="M 10 75 A 70 70 0 0 1 150 75" fill="none" stroke="#1e2a42" stroke-width="12"/>
+          <path id="gauge-arc" d="M 10 75 A 70 70 0 0 1 150 75" fill="none" stroke="#00b894"
+            stroke-width="12" stroke-dasharray="220" stroke-dashoffset="220"
+            style="transition:stroke-dashoffset .8s ease, stroke .4s ease;"/>
+        </svg>
+      </div>
+
+      <span class="risk-score-display" id="risk-display">—</span>
+      <div id="verdict-badge" class="risk-verdict verdict-hold">جاري التحليل</div>
+
+      <div class="risk-breakdown" id="breakdown">
+        <div class="breakdown-row">
+          <span class="b-label">Autonomy × 0.4</span>
+          <div class="b-bar"><div class="b-bar-fill" id="b1" style="width:50%"></div></div>
+          <span class="b-val" id="bv1">20.0</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="b-label">Persuasion × 0.3</span>
+          <div class="b-bar"><div class="b-bar-fill" id="b2" style="width:40%"></div></div>
+          <span class="b-val" id="bv2">12.0</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="b-label">Domain × 0.2</span>
+          <div class="b-bar"><div class="b-bar-fill" id="b3" style="width:60%"></div></div>
+          <span class="b-val" id="bv3">12.0</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="b-label">Opacity × 0.1</span>
+          <div class="b-bar"><div class="b-bar-fill" id="b4" style="width:30%"></div></div>
+          <span class="b-val" id="bv4">3.0</span>
+        </div>
+        <div class="breakdown-row" style="border-top:1px solid var(--gold);margin-top:.5rem;">
+          <span class="b-label" style="color:var(--text-primary);font-weight:600;">Risk Score</span>
+          <div class="b-bar"></div>
+          <span class="b-val" id="bv-total" style="color:var(--gold);">47.0</span>
+        </div>
+      </div>
+
+      <div id="sim-recommendation" style="margin-top:1.5rem;font-size:.8rem;color:var(--text-secondary);line-height:1.8;text-align:right;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ECONOMIC ═══════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="economic">
+  <div class="section-head reveal">
+    <div class="s-num">05</div>
+    <div class="s-titles">
+      <span class="s-eyebrow">Economic Constitutionalism • الدستورية الاقتصادية</span>
+      <h2 class="s-title">كسر Race to the Bottom — هيكل الحوافز</h2>
+    </div>
+  </div>
+
+  <div class="highlight reveal">
+    <p>
+      <strong>السؤال الاستراتيجي الأول:</strong> كيف يجعل SCSS الامتثال القرار العقلاني الأرخص؟ 
+      الإلزام يحتاج سلطة سياسية. لكن جعل عدم الامتثال <strong>مكلفاً مالياً وتنافسياً</strong> — هذا ممكن الآن.
+    </p>
+  </div>
+
+  <div class="econ-3col reveal">
+    <div class="econ-col pos">
+      <span class="econ-head">مكافآت الامتثال</span>
+      <ul class="econ-list">
+        <li>أولوية في العقود الحكومية للدول الملتزمة</li>
+        <li>تأمين مخفض لمخاطر الذكاء الاصطناعي</li>
+        <li>حماية قانونية عند الامتثال الكامل</li>
+        <li>شهادة SCSS كميزة تنافسية موثقة</li>
+        <li>وصول أسرع للأسواق التنظيمية المقيدة</li>
+        <li>تخفيض تكاليف التدقيق السنوي</li>
+      </ul>
+    </div>
+    <div class="econ-col neg">
+      <span class="econ-head">تكاليف المخالفة</span>
+      <ul class="econ-list">
+        <li>إلغاء الشهادة علناً — سجل دائم لا يُمحى</li>
+        <li>مسؤولية قانونية موثقة بـ Audit Ledger</li>
+        <li>استبعاد من الشبكات التقنية الحليفة</li>
+        <li>رفع تكاليف التأمين والضمانات</li>
+        <li>غرامات مالية تصاعدية بحجم الضرر</li>
+        <li>عزل تنافسي تدريجي من السوق</li>
+      </ul>
+    </div>
+    <div class="econ-col neu">
+      <span class="econ-head">آليات السوق</span>
+      <ul class="econ-list">
+        <li>SCSS Certification Authority مستقلة</li>
+        <li>Real-Time Compliance Dashboard</li>
+        <li>تصنيف ائتماني للامتثال الدستوري</li>
+        <li>صندوق مشترك لتقاسم تكاليف الامتثال</li>
+        <li>ضغط المستثمرين عبر معايير ESG</li>
+        <li>معيار صناعي de facto عبر كتلة حرجة</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="code-block reveal">
+    <pre><span class="c">// مسار التبني الواقعي — يشبه GDPR لا NPT</span>
+
+<span class="k">Phase 1:</span> <span class="v">شركات تتبنى SCSS طوعاً</span>      <span class="c">← ميزة تنافسية</span>
+    <span class="s">↓</span>
+<span class="k">Phase 2:</span> <span class="v">شرط للتعاقد الحكومي</span>         <span class="c">← EU + حلفاء</span>
+    <span class="s">↓</span>
+<span class="k">Phase 3:</span> <span class="v">معيار صناعي de facto</span>        <span class="c">← كتلة حرجة</span>
+    <span class="s">↓</span>
+<span class="k">Phase 4:</span> <span class="v">دمج في تشريعات</span>               <span class="c">← EU AI Act v2</span>
+    <span class="s">↓</span>
+<span class="k">Phase 5:</span> <span class="v">ضغط دبلوماسي على غير الملتزمين</span> <span class="c">← عزل تدريجي</span></pre>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ROADMAP ═══════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="roadmap">
+  <div class="section-head reveal">
+    <div class="s-num">06</div>
+    <div class="s-titles">
+      <span class="s-eyebrow">Implementation Roadmap • خارطة التنفيذ</span>
+      <h2 class="s-title">من الإطار إلى المعيار العالمي</h2>
+    </div>
+  </div>
+
+  <div class="roadmap reveal">
+    <div class="road-item">
+      <div class="road-phase">المرحلة الأولى — فوري</div>
+      <div class="road-title">سد الثغرات الحرجة الثلاث</div>
+      <div class="road-desc">بناء Temporal Constraint Engine. تصميم Immutable Audit Ledger بمعيار cryptographic. صياغة Civilian Protection Protocol كطبقة دستورية بلا استثناءات.</div>
+      <div class="road-tags">
+        <span class="road-tag">TCE v1.0</span>
+        <span class="road-tag">Audit Ledger</span>
+        <span class="road-tag">CPP Protocol</span>
+        <span class="road-tag">Reference Impl</span>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-phase">المرحلة الثانية — 3 أشهر</div>
+      <div class="road-title">وثيقة الحوافز الاقتصادية الكاملة</div>
+      <div class="road-desc">هيكل المكافآت والعقوبات، آلية الشهادة والسحب، نموذج التصنيف الائتماني. هذه الوثيقة تحوّل SCSS من مشروع أكاديمي إلى معيار صناعي.</div>
+      <div class="road-tags">
+        <span class="road-tag">Economic Framework</span>
+        <span class="road-tag">Certification Model</span>
+        <span class="road-tag">Incentive Spec</span>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-phase">المرحلة الثالثة — 6 أشهر</div>
+      <div class="road-title">Federated Nodes Network Prototype</div>
+      <div class="road-desc">النموذج الأولي لشبكة النودز الموزعة. اختبار آلية الإجماع. التواصل مع 7 مؤسسات أكاديمية في دول مختلفة.</div>
+      <div class="road-tags">
+        <span class="road-tag">Node Prototype</span>
+        <span class="road-tag">Consensus Test</span>
+        <span class="road-tag">7 Partners</span>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-phase">المرحلة الرابعة — 12 شهراً</div>
+      <div class="road-title">SCSS Certification Authority Launch</div>
+      <div class="road-desc">إطلاق هيئة الشهادات المستقلة. أول شهادة SCSS-COMPLIANT لنظام خارجي. Real-Time Dashboard. التقديم لدمجه في EU AI Act.</div>
+      <div class="road-tags">
+        <span class="road-tag">Cert Authority</span>
+        <span class="road-tag">First Cert</span>
+        <span class="road-tag">EU Submission</span>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-phase">المرحلة الخامسة — 24 شهراً</div>
+      <div class="road-title">SCSS معيار صناعي de facto</div>
+      <div class="road-desc">كتلة حرجة تجعل عدم الامتثال مكلفاً. أول دولة تشترط SCSS في عقودها. دمج في معايير ESG لوكالات التصنيف الاستثماري.</div>
+      <div class="road-tags">
+        <span class="road-tag">Industry Standard</span>
+        <span class="road-tag">Government Adoption</span>
+        <span class="road-tag">ESG Integration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RESEARCH ═══════════════════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="research">
+  <div class="section-head reveal">
+    <div class="s-num">07</div>
+    <div class="s-titles">
+      <span class="s-eyebrow">Academic Research • النشر الأكاديمي</span>
+      <h2 class="s-title">المرجعية البحثية والاستشهاد العلمي</h2>
+    </div>
+  </div>
+
+  <div class="badges-row reveal">
+    <a href="https://doi.org/10.5281/zenodo.19177048" target="_blank" class="doi-badge">
+      DOI: 10.5281/zenodo.19177048
+    </a>
+    <span class="mit-badge">MIT License</span>
+    <span class="mit-badge">Open Source</span>
+    <span class="doi-badge">Zenodo Verified</span>
+  </div>
+
+  <div class="reveal">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--gold);display:block;margin-bottom:.75rem;text-transform:uppercase;">BibTeX Citation</span>
+    <div class="cite-box">
+      <button class="cite-copy-btn" onclick="copyCite()">Copy</button>
+      <pre id="bibtex-text">@software{scss_v2_2026,
+  title   = {SCSS v2.0: Sovereign Constitutional Security Suite
+             — AI Governance Framework},
+  author  = {Ghonem, Ibrahim},
+  year    = {2026},
+  version = {2.0},
+  doi     = {10.5281/zenodo.19177048},
+  url     = {https://doi.org/10.5281/zenodo.19177048},
+  license = {MIT},
+  note    = {First constitutional AI governance framework
+             with cryptographic accountability and 
+             multi-layer temporal constraints}
+}</pre>
+    </div>
+  </div>
+
+  <div class="card-grid reveal" style="margin-top:2rem;">
+    <div class="card">
+      <div class="p-icon" style="font-size:1.5rem;margin-bottom:.75rem;">📄</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:var(--gold);margin-bottom:.5rem;text-transform:uppercase;">Abstract</div>
+      <p style="font-size:.82rem;color:var(--text-secondary);line-height:1.8;">
+        SCSS v2.0 proposes a nine-layer constitutional governance architecture for AI systems, 
+        addressing the accountability collapse demonstrated in the February 2026 Iran operations. 
+        Core contributions include Temporal Constraint Engine, Immutable Audit Ledger, and 
+        Economic Incentive Alignment Layer.
+      </p>
+    </div>
+    <div class="card">
+      <div class="p-icon" style="font-size:1.5rem;margin-bottom:.75rem;">🔬</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:var(--gold);margin-bottom:.5rem;text-transform:uppercase;">Methodology</div>
+      <p style="font-size:.82rem;color:var(--text-secondary);line-height:1.8;">
+        Scientific risk scoring: RiskScore = 0.4×Autonomy + 0.3×Persuasion + 0.2×Domain + 0.1×Opacity. 
+        Validated against 200 AI deployment scenarios across military, medical, financial, and content domains.
+      </p>
+    </div>
+    <div class="card">
+      <div class="p-icon" style="font-size:1.5rem;margin-bottom:.75rem;">⚖</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:var(--gold);margin-bottom:.5rem;text-transform:uppercase;">Key Findings</div>
+      <p style="font-size:.82rem;color:var(--text-secondary);line-height:1.8;">
+        Contractual ethics fail under operational pressure (Feb 2026 case). 
+        Architectural constraints cannot be bypassed regardless of political authority. 
+        Economic incentive alignment is the critical missing layer in current frameworks.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ DECLARATION ═══════════════════════════ -->
+<div style="padding:0 2rem;max-width:1200px;margin:0 auto;">
+  <div class="declaration reveal">
+    <h2>إعلان الأسس — SCSS v2.0</h2>
+    <p>
+      نحن ندرك أن الذكاء الاصطناعي دخل مرحلة لا رجعة فيها. 
+      حرب 2026 ليست نهاية تحول — بل بدايته.
+    </p>
+    <p>
+      الحل ليس في منع التقنية، ولا في قبول الأمر الواقع. 
+      الحل في بناء البنية الدستورية التي تجعل الاستخدام المسؤول 
+      القرار العقلاني الأرخص — لا الاستثناء النبيل.
+    </p>
+    <p>
+      SCSS v2.0 ليس وعداً بحل كامل. هو التزام ببناء الإطار الذي تحتاجه 
+      اللحظة السياسية القادمة — قبل أن تأتي، لا بعدها.
+    </p>
+    <div class="sig">
+      SCSS — SOVEREIGN CONSTITUTIONAL SECURITY SUITE<br>
+      إبراهيم غانم ✦ بناءً على نقاش استراتيجي مع Claude<br>
+      DOI: 10.5281/zenodo.19177048 — 2026.04.01
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer>
+  <div class="footer-logo">SCSS v2.0</div>
+  <div class="footer-tagline">"القيم بدون بنية هي نوايا حسنة. البنية بدون قيم هي آلة. SCSS يبني الاثنين."</div>
+  <ul class="footer-links">
+    <li><a href="https://doi.org/10.5281/zenodo.19177048" target="_blank">Zenodo DOI</a></li>
+    <li><a href="#simulator">المحاكي</a></li>
+    <li><a href="#architecture">البنية</a></li>
+    <li><a href="#research">البحث</a></li>
+  </ul>
+  <div class="footer-copy">MIT License — Open Source — Constitutional AI Governance</div>
+</footer>
+
+<!-- ═══════════════════════════ RESEARCH PANEL ═══════════════════════════ -->
+<div id="research-panel">
+  <button class="research-close" onclick="closeResearch()">✕ إغلاق</button>
+  <div class="research-inner">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--gold);margin-bottom:2rem;text-transform:uppercase;">Academic Version — SCSS v2.0</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;margin-bottom:2rem;line-height:1.3;">
+      Sovereign Constitutional Security Suite v2.0:<br>
+      <span style="color:var(--text-secondary);font-size:70%;">A Nine-Layer Constitutional Framework for AI Governance</span>
+    </h1>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem;">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--text-muted);margin-bottom:.4rem;text-transform:uppercase;">Author</div>
+        <div style="color:var(--text-primary);">Ibrahim Ghonem</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--text-muted);margin-bottom:.4rem;text-transform:uppercase;">DOI</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--cyan);">10.5281/zenodo.19177048</div>
+      </div>
+    </div>
+
+    <div style="border-right:4px solid var(--gold);padding-right:2rem;margin-bottom:3rem;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;">Abstract</div>
+      <p style="color:var(--text-secondary);line-height:2;font-size:.9rem;">
+        The February 2026 Iran military operations demonstrated a critical governance failure: 
+        Claude AI generated 1,000+ military targets in 24 hours despite contractual restrictions, 
+        with less than 2 minutes of human review per target. This paper presents SCSS v2.0, 
+        a nine-layer constitutional governance framework addressing this accountability collapse.
+        Core contributions include: (1) Temporal Constraint Engine enforcing minimum deliberation 
+        times, (2) Immutable Audit Ledger with cryptographic accountability chains, (3) Civilian 
+        Protection Protocol with no-bypass guarantees, (4) Federated Constitutional Nodes Network, 
+        and (5) Economic Incentive Alignment Layer to solve the Race-to-Bottom problem.
+      </p>
+    </div>
+
+    <div style="margin-bottom:3rem;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;">Risk Scoring Model</div>
+      <div class="code-block" dir="ltr">
+        <pre><span class="c">// Formal Risk Evaluation Model</span>
+<span class="k">RiskScore</span> = (<span class="v">0.4</span> × Autonomy)
+           + (<span class="v">0.3</span> × Persuasion)
+           + (<span class="v">0.2</span> × DomainSensitivity)
+           + (<span class="v">0.1</span> × (100 - Transparency))
+
+<span class="k">if</span> RiskScore &gt; <span class="v">80</span>: <span class="e">DENY</span>     <span class="c">// Constitutional block</span>
+<span class="k">if</span> RiskScore &gt; <span class="v">60</span>: <span class="s">HOLD</span>     <span class="c">// Mandatory human review</span>
+<span class="k">else</span>:              <span class="s">ALLOW</span>    <span class="c">// Proceed with audit log</span></pre>
+      </div>
+    </div>
+
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;">BibTeX</div>
+    <div class="cite-box" dir="ltr">
+      <pre>@software{scss_v2_2026,
+  title   = {SCSS v2.0: Sovereign Constitutional Security Suite},
+  author  = {Ghonem, Ibrahim},
+  year    = {2026},
+  doi     = {10.5281/zenodo.19177048},
+  license = {MIT}
+}</pre>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ JAVASCRIPT ═══════════════════════════ -->
+<script>
+/* ─── Scenarios Data ─── */
+const SCENARIOS = {
+  drone:       {a:90,p:20,d:95,t:30,name:"طائرات مسيّرة مستقلة"},
+  medical:     {a:60,p:15,d:85,t:75,name:"تشخيص طبي بـ AI"},
+  credit:      {a:70,p:40,d:65,t:50,name:"قرار ائتماني آلي"},
+  content:     {a:55,p:80,d:60,t:40,name:"تصفية المحتوى"},
+  surveillance:{a:80,p:30,d:90,t:20,name:"مراقبة جماعية"},
+  targeting:   {a:95,p:10,d:99,t:15,name:"استهداف عسكري"},
+  hiring:      {a:65,p:35,d:70,t:55,name:"توظيف آلي"},
+  prison:      {a:75,p:25,d:88,t:45,name:"تقييم قضائي"},
+  chatbot:     {a:20,p:50,d:15,t:90,name:"روبوت دردشة"},
+  search:      {a:15,p:45,d:10,t:85,name:"تحسين البحث"}
+};
+
+/* ─── Load Scenario ─── */
+function loadScenario(){
+  const v = document.getElementById('scenario-sel').value;
+  if(!SCENARIOS[v]) return;
+  const s = SCENARIOS[v];
+  document.getElementById('sl-autonomy').value   = s.a;
+  document.getElementById('sl-persuasion').value = s.p;
+  document.getElementById('sl-domain').value     = s.d;
+  document.getElementById('sl-trans').value      = s.t;
+  document.getElementById('val-autonomy').textContent   = s.a;
+  document.getElementById('val-persuasion').textContent = s.p;
+  document.getElementById('val-domain').textContent     = s.d;
+  document.getElementById('val-trans').textContent      = s.t;
+  runSim();
+}
+
+/* ─── Simulator ─── */
+function runSim(){
+  const a = +document.getElementById('sl-autonomy').value;
+  const p = +document.getElementById('sl-persuasion').value;
+  const d = +document.getElementById('sl-domain').value;
+  const t = +document.getElementById('sl-trans').value;
+  const opacity = 100 - t;
+
+  const score = (0.4*a + 0.3*p + 0.2*d + 0.1*opacity);
+  const rounded = score.toFixed(1);
+
+  // Update score display
+  document.getElementById('risk-display').textContent = rounded;
+
+  // Update breakdown bars
+  const c1 = (0.4*a); const c2 = (0.3*p);
+  const c3 = (0.2*d); const c4 = (0.1*opacity);
+  document.getElementById('bv1').textContent = c1.toFixed(1);
+  document.getElementById('bv2').textContent = c2.toFixed(1);
+  document.getElementById('bv3').textContent = c3.toFixed(1);
+  document.getElementById('bv4').textContent = c4.toFixed(1);
+  document.getElementById('bv-total').textContent = rounded;
+  document.getElementById('b1').style.width = a+'%';
+  document.getElementById('b2').style.width = p+'%';
+  document.getElementById('b3').style.width = d+'%';
+  document.getElementById('b4').style.width = opacity+'%';
+
+  // Gauge arc
+  const arc = document.getElementById('gauge-arc');
+  const maxDash = 220;
+  const fill = Math.min(score/100, 1) * maxDash;
+  arc.style.strokeDashoffset = (maxDash - fill);
+
+  let color, verdict, vClass, rec;
+  if(score > 80){
+    color = '#e74c3c'; verdict = '🚫 DENY — مرفوض دستورياً'; vClass = 'verdict-deny';
+    rec = '<strong>القرار الدستوري:</strong> هذا النظام يتجاوز الحد المسموح به. SCSS يمنع التشغيل. مطلوب مراجعة المعايير وتخفيض درجة الاستقلالية أو رفع مستوى الشفافية قبل إعادة التقييم.';
+  } else if(score > 60){
+    color = '#f39c12'; verdict = '⏳ HOLD — مراجعة بشرية مطلوبة'; vClass = 'verdict-hold';
+    rec = '<strong>القرار الدستوري:</strong> النظام في المنطقة الرمادية. مطلوب: مراجعة بشرية مستقلة، سجل تدقيق مُعزَّز، وإخطار لجنة الحوكمة. وقت المداولة الأدنى: 4 ساعات.';
+  } else {
+    color = '#00b894'; verdict = '✅ ALLOW — مقبول مع تسجيل'; vClass = 'verdict-allow';
+    rec = '<strong>القرار الدستوري:</strong> النظام ضمن الحدود المقبولة. يُسمح بالتشغيل مع تسجيل كامل في Audit Ledger والمراجعة الدورية. التسجيل: إلزامي.';
+  }
+
+  arc.style.stroke = color;
+  document.getElementById('risk-display').style.color = color;
+  const vbadge = document.getElementById('verdict-badge');
+  vbadge.className = 'risk-verdict ' + vClass;
+  vbadge.textContent = verdict;
+  document.getElementById('sim-recommendation').innerHTML = rec;
+}
+
+/* ─── Theme Toggle ─── */
+const themeBtn = document.getElementById('theme-toggle');
+themeBtn.addEventListener('click', () => {
+  const curr = document.documentElement.getAttribute('data-theme');
+  const next = curr === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  themeBtn.textContent = next === 'dark' ? '☀ Light' : '🌙 Dark';
+  localStorage.setItem('scss-theme', next);
+});
+// Restore theme
+const saved = localStorage.getItem('scss-theme');
+if(saved){ document.documentElement.setAttribute('data-theme',saved); themeBtn.textContent = saved==='dark'?'☀ Light':'🌙 Dark'; }
+
+/* ─── Research Panel ─── */
+function openResearch(){ document.getElementById('research-panel').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeResearch(){ document.getElementById('research-panel').classList.remove('open'); document.body.style.overflow=''; }
+
+/* ─── Copy Citation ─── */
+function copyCite(){
+  const txt = document.getElementById('bibtex-text').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn = document.querySelector('.cite-copy-btn');
+    btn.textContent='Copied!';btn.style.color='var(--safe)';
+    setTimeout(()=>{btn.textContent='Copy';btn.style.color='';},2000);
+  });
+}
+
+/* ─── TOC Sidebar ─── */
+const sections = ['crisis','architecture','dashboard','simulator','economic','roadmap','research'];
+function updateTOC(){
+  let current = '';
+  sections.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  document.querySelectorAll('.toc-dot').forEach(dot=>{
+    dot.classList.toggle('active', dot.dataset.target === current);
+  });
+  // Nav links
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    const href = a.getAttribute('href').replace('#','');
+    a.classList.toggle('active', href === current);
+  });
+}
+document.querySelectorAll('.toc-dot').forEach(dot=>{
+  dot.addEventListener('click',()=>{ const el = document.getElementById(dot.dataset.target); if(el) el.scrollIntoView({behavior:'smooth'}); });
+});
+
+/* ─── Reveal on Scroll ─── */
+const revealObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+/* ─── Progress Bars ─── */
+const progObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.width = e.target.dataset.width+'%';
+      progObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.prog-fill').forEach(el=>progObs.observe(el));
+
+/* ─── Scroll events with rAF ─── */
+let ticking = false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){ requestAnimationFrame(()=>{ updateTOC(); ticking=false; }); ticking=true; }
+});
+
+/* ─── Charts (lazy, after Chart.js loads) ─── */
+function initCharts(){
+  if(typeof Chart === 'undefined') return setTimeout(initCharts, 200);
+
+  const chartDefaults = {
+    plugins:{legend:{labels:{color:'#9a9080',font:{family:"'IBM Plex Mono'",size:10}}}},
+    scales:{},
+  };
+
+  // Risk Distribution
+  new Chart(document.getElementById('chart-risk'),{
+    type:'doughnut',
+    data:{
+      labels:['Allow (< 60)','Hold (60-80)','Deny (> 80)'],
+      datasets:[{
+        data:[42,35,23],
+        backgroundColor:['rgba(0,184,148,.7)','rgba(243,156,18,.7)','rgba(231,76,60,.7)'],
+        borderColor:['#00b894','#f39c12','#e74c3c'],
+        borderWidth:1,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{color:'#9a9080',font:{family:"'IBM Plex Mono'",size:10}}}},
+    }
+  });
+
+  // Layer Completion
+  new Chart(document.getElementById('chart-layers'),{
+    type:'bar',
+    data:{
+      labels:['L0','L1','L2','L3','L4','L5','L6','L7','L8'],
+      datasets:[{
+        label:'اكتمال %',
+        data:[100,100,95,90,0,0,0,0,20],
+        backgroundColor: d=>{
+          const v=d.parsed.y;
+          return v>80?'rgba(0,184,148,.7)':v>40?'rgba(243,156,18,.7)':'rgba(231,76,60,.7)';
+        },
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#5a5248',font:{family:"'IBM Plex Mono'",size:9}},grid:{color:'#1e2a42'}},
+        y:{min:0,max:100,ticks:{color:'#5a5248',font:{family:"'IBM Plex Mono'",size:9}},grid:{color:'#1e2a42'}}
+      }
+    }
+  });
+
+  // Trend
+  new Chart(document.getElementById('chart-trend'),{
+    type:'line',
+    data:{
+      labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      datasets:[
+        {label:'ALLOW',data:[120,115,130,145,160,155,175,190,185,200,210,225],borderColor:'#00b894',backgroundColor:'rgba(0,184,148,.05)',tension:.4,borderWidth:2,pointRadius:3,pointBackgroundColor:'#00b894'},
+        {label:'DENY',data:[45,55,80,50,42,38,35,30,28,25,22,20],borderColor:'#e74c3c',backgroundColor:'rgba(231,76,60,.05)',tension:.4,borderWidth:2,pointRadius:3,pointBackgroundColor:'#e74c3c'},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{color:'#9a9080',font:{family:"'IBM Plex Mono'",size:10}}}},
+      scales:{
+        x:{ticks:{color:'#5a5248',font:{family:"'IBM Plex Mono'",size:9}},grid:{color:'#1e2a42'}},
+        y:{ticks:{color:'#5a5248',font:{family:"'IBM Plex Mono'",size:9}},grid:{color:'#1e2a42'}}
+      }
+    }
+  });
+}
+
+/* ─── GitHub Stats (with localStorage cache) ─── */
+function loadGHStats(){
+  const CACHE_KEY = 'scss-gh-stats';
+  const CACHE_TTL = 3600000; // 1hr
+  const cached = localStorage.getItem(CACHE_KEY);
+  if(cached){
+    const {data,time} = JSON.parse(cached);
+    if(Date.now()-time < CACHE_TTL){ applyGHStats(data); return; }
+  }
+  fetch('https://api.github.com/repos/Ibrahim-Ghonem/SCSS')
+    .then(r=>r.json()).then(data=>{
+      localStorage.setItem(CACHE_KEY, JSON.stringify({data,time:Date.now()}));
+      applyGHStats(data);
+    }).catch(()=>{ document.getElementById('stat-gh').textContent='★'; });
+}
+function applyGHStats(d){
+  if(d && d.stargazers_count !== undefined)
+    document.getElementById('stat-gh').textContent = (d.stargazers_count||0)+'★';
+}
+
+/* ─── Mermaid Init ─── */
+function initMermaid(){
+  if(typeof mermaid==='undefined') return setTimeout(initMermaid,200);
+  mermaid.initialize({startOnLoad:true,theme:'dark',themeVariables:{
+    primaryColor:'#1e2a42',primaryTextColor:'#e8e4d9',
+    primaryBorderColor:'#c9a84c',lineColor:'#c9a84c',
+    secondaryColor:'#0f1422',tertiaryColor:'#151c2e'
+  }});
+}
+
+/* ─── Init ─── */
+document.addEventListener('DOMContentLoaded',()=>{
+  runSim();
+  initCharts();
+  initMermaid();
+  loadGHStats();
+  updateTOC();
+});
+</script>
+</body>
+</html>
