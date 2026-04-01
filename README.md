@@ -1,3 +1,11 @@
+# SCSS — AI Constitutional Operating System
+[![Interactive Lab](https://img.shields.io/badge/Run_Simulator-Interactive_Lab-gold?style=for-the-badge)](https://ramyromel.github.io/SCSS/)
+
+> 🚨 **EXPERIENCE SCSS LIVE:** Stop reading and start testing!  
+> Click the badge above to visit our **Interactive Research Lab**. Run live AI governance simulations, view dynamic risk radars, and explore the complete 9-layer constitutional architecture.
+
+---
+
 # SCSS — AI Constitutional Operating System & Reference Network v0.1
 
 **Sovereign Constitutional Security Suite + Running Governance Network**  
